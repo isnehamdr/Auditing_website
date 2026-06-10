@@ -21,7 +21,7 @@ const ChevronDoubleRight = () => (
 
 const About = () => {
   return (
-    <section className="max-w-7xl mx-auto  py-12 px-4 sm:px-8 lg:px-16">
+    <section className="max-w-7xl mx-auto  py-20 px-4 sm:px-8 lg:px-16">
       <div className=" grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-center">
 
         {/* ── LEFT COLUMN ── */}
