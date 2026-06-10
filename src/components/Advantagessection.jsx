@@ -23,7 +23,6 @@ const stats = [
   { value: "10+", label: "Years in Business" },
   { value: "8+", label: "Years in Offshoring" },
   { value: "30+", label: "Employees" },
-
 ];
 
 const AdvantagesSection = () => {
@@ -40,9 +39,8 @@ const AdvantagesSection = () => {
           <div className="flex flex-col gap-4 max-w-md mx-auto w-full">
             {cards.map((card, index) => {
               const isActive = activeId === card.id;
-              // Check if this is the second card (index 1)
               const isSecondCard = index === 1;
-              
+
               return (
                 <div
                   key={card.id}
@@ -54,29 +52,14 @@ const AdvantagesSection = () => {
                   `}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h3
-                      className={`
-                        text-base sm:text-2xl md:text-3xl font-normal
-                        ${isActive || isSecondCard ? "text-white" : "text-gray-900"}
-                      `}
-                    >
+                    <h3 className={`text-base sm:text-2xl md:text-3xl font-normal ${isActive || isSecondCard ? "text-white" : "text-gray-900"}`}>
                       {card.title}
                     </h3>
-                    <span
-                      className={`
-                        text-md font-medium tabular-nums ml-4 flex-shrink-0
-                        ${isActive || isSecondCard ? "text-blue-200" : "text-gray-700"}
-                      `}
-                    >
+                    <span className={`text-md font-medium tabular-nums ml-4 flex-shrink-0 ${isActive || isSecondCard ? "text-blue-200" : "text-gray-700"}`}>
                       {card.id}
                     </span>
                   </div>
-                  <p
-                    className={`
-                      text-base sm:text-lg leading-relaxed
-                      ${isActive || isSecondCard ? "text-blue-100" : "text-gray-700"}
-                    `}
-                  >
+                  <p className={`text-base sm:text-lg leading-relaxed ${isActive || isSecondCard ? "text-blue-100" : "text-gray-700"}`}>
                     {card.desc}
                   </p>
                 </div>
@@ -86,9 +69,7 @@ const AdvantagesSection = () => {
 
           {/* Right: Heading + CTA */}
           <div className="flex flex-col gap-5">
-            <p className="text-[#38b6ff] text-xl font-medium mt-8">
-              Advantages
-            </p>
+            <p className="text-[#38b6ff] text-xl font-medium mt-8">Advantages</p>
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-normal text-gray-900">
               Empowering Decisions With Financial Precision
             </h2>
@@ -103,22 +84,24 @@ const AdvantagesSection = () => {
           </div>
         </div>
 
-      
-{/* ── BOTTOM: Stats Bar ── */}
-<div className="border-dotted border-[#38b6ff] border-2 p-6 sm:p-8 mt-10">
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
-    {stats.map((s, i) => (
-      <div key={i} className="flex flex-col gap-2 text-center">
-        <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#38b6ff]">
-          {s.value}
-        </span>
-        <span className="text-gray-800 text-sm sm:text-base md:text-lg font-medium">
-          {s.label}
-        </span>
-      </div>
-    ))}
-  </div>
-</div>
+        {/* ── BOTTOM: Stats Bar ── */}
+        {/* px-20 only on lg+, no side padding on mobile so numbers don't get crushed */}
+        <div className="max-w-7xl mx-auto lg:px-20">
+          <div className="border-dotted border-[#38b6ff] border-2 p-6 sm:p-8 mt-10 rounded-md">
+            <div className="grid grid-cols-3 gap-4 sm:gap-8 md:gap-12 lg:gap-16">
+              {stats.map((s, i) => (
+                <div key={i} className="flex flex-col gap-1 sm:gap-2 text-center">
+                  <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#38b6ff]">
+                    {s.value}
+                  </span>
+                  <span className="text-gray-800 text-xs sm:text-base md:text-lg font-medium leading-tight">
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
       </div>
     </section>

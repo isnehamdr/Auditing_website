@@ -8,9 +8,9 @@ const services = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H8v-2.414a2 2 0 01.586-1.414z" />
       </svg>
     ),
-    title: "Financial Analysis",
+    title: "Audit & Assurance",
     description:
-      "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "Independent assurance that stands up to scrutiny — from boards, regulators, lenders, and investors. Statutory audits, internal audits, due diligence, and special-purpose work.",
   },
   {
     id: 2,
@@ -19,9 +19,9 @@ const services = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-4a4 4 0 100-8 4 4 0 000 8zm6 4a2 2 0 11-4 0 2 2 0 014 0zM5 18a2 2 0 114 0 2 2 0 01-4 0z" />
       </svg>
     ),
-    title: "Software Integration",
+    title: "Tax & Regulatory Compliance",
     description:
-      "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "Practical tax and regulatory advice for businesses operating in Nepal’s constantly shifting landscape. Income tax, VAT, customs, dispute defence, and sector-specific regulators.",
   },
   {
     id: 3,
@@ -31,9 +31,9 @@ const services = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     ),
-    title: "Compliance Services",
+    title: "Business Advisory & Consulting",
     description:
-      "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "The work that helps a business run better, grow faster, and make sharper decisions. Business model design, internal controls, outsourced finance, and training.",
   },
 ];
 

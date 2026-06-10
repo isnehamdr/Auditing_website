@@ -10,6 +10,8 @@ import SupportServices from './components/Supportservices'
 import Testimonials from './components/Testimonials'
 import Process from './components/Process'
 import FuelingGrowth from './components/Fuelinggrowth'
+import Footer from './components/Footer'
+import BackToTop from './components/BacktoTop'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +19,7 @@ function App() {
   return (
     <>
     <Navbar/>
+    <BackToTop/>
     <Hero/>
 <Services/>
 <About/>
@@ -25,6 +28,7 @@ function App() {
 <Testimonials/>
 <Process/>
 <FuelingGrowth/>
+<Footer/>
  
     </>
   )

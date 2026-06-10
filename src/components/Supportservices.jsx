@@ -41,10 +41,12 @@ const ChevronRight = () => (
 const ServiceItem = ({ title, description }) => (
   <div className="flex items-start justify-between gap-4 py-5 border-b border-blue-200 last:border-b-0 first:pt-0">
     <div className="flex-1">
-      <h3 className="text-xl md:text-5xl font-normal text-[#1a2f5e] mb-1 ">
+      {/* mobile: text-2xl — desktop: text-5xl (unchanged) */}
+      <h3 className="text-2xl md:text-5xl font-normal text-[#1a2f5e] mb-1">
         {title}
       </h3>
-      <p className="text-lg text-gray-700 mt-6">{description}</p>
+      {/* mobile: mt-2 — desktop: mt-6 (unchanged) */}
+      <p className="text-base md:text-lg text-gray-700 mt-2 md:mt-6">{description}</p>
     </div>
     <button
       aria-label={`Learn more about ${title}`}
@@ -57,8 +59,8 @@ const ServiceItem = ({ title, description }) => (
 
 export default function SupportServices() {
   return (
-    <section className="bg-[#eef0f8] py-20 px-4 sm:px-16">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-[#eef2f9]">
+      <div className="pb-20 px-4 sm:px-16 max-w-7xl mx-auto">
         {/* Section label */}
         <p className="text-xl text-[#38b6ff] mb-2 font-normal">
           Our Support Services
@@ -68,24 +70,21 @@ export default function SupportServices() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left: heading + image */}
           <div>
-            <h2 className="text-3xl md:text-6xl font-normal text-[#1a1a2e] mb-6 ">
+            <h2 className="text-3xl md:text-6xl font-normal text-[#1a1a2e] mb-6">
               You Can Trust Us
             </h2>
-            <div className="rounded-lg overflow-hidden aspect-[3/4]">
-              {/*
-                Replace the img src below with your actual image.
-                Example: src="/images/team-photo.jpg"
-              */}
+            {/* mobile: full-width natural height — desktop: fixed size (unchanged) */}
+            <div className="overflow-hidden w-full md:aspect-[3/4] md:w-auto">
               <img
                 src="/images/supportimage.webp"
                 alt="Two professionals reviewing financial documents together at a desk"
-                className="w-[560px] h-[750px] object-cover"
+                className="w-full h-48 sm:h-64 md:w-[560px] md:h-[750px] object-cover"
               />
             </div>
           </div>
 
-          {/* Right: services list */}
-          <div className="flex flex-col divide-y-3 mt-24">
+          {/* Right: services list — removed mt-24 on mobile */}
+          <div className="flex flex-col divide-y-3 md:mt-24">
             {services.map((service) => (
               <ServiceItem
                 key={service.title}

@@ -53,7 +53,7 @@ const About = () => {
 
           {/* CTA Button */}
           <div className="pt-2">
-            <button className="bg-[#38b6ff] active:scale-95 text-white text-sm sm:text-xl font-normal px-7 py-3 rounded-full transition-all duration-200">
+            <button className="bg-[#38b6ff] active:scale-95 text-white text-md sm:text-xl font-normal px-6 py-2 rounded-full transition-all duration-200">
               About Us
             </button>
           </div>
@@ -71,7 +71,7 @@ const About = () => {
           </div>
 
           {/* Blue caption box overlapping the bottom of the image */}
-          <div className="bg-[#38b6ff] text-white text-sm sm:text-2xl px-5 py-5 rounded-b-lg lg:rounded-b-none lg:rounded-br-lg -mt-1">
+          <div className="bg-[#38b6ff] text-white text-md sm:text-2xl px-5 py-5  lg:rounded-b-none lg:rounded-br-lg -mt-1">
             <p>
               By analyzing historical financial data and projecting future trends,
               businesses can create realistic budgets, set financial goals, and plan
