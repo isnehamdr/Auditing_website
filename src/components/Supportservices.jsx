@@ -42,7 +42,7 @@ const ServiceItem = ({ title, description }) => (
   <div className="flex items-start justify-between gap-4 py-5 border-b border-blue-200 last:border-b-0 first:pt-0">
     <div className="flex-1">
       {/* mobile: text-2xl — desktop: text-5xl (unchanged) */}
-      <h3 className="text-2xl md:text-5xl font-normal text-[#1a2f5e] mb-1">
+      <h3 className="text-2xl md:text-4xl font-normal text-[#1a2f5e] mb-1">
         {title}
       </h3>
       {/* mobile: mt-2 — desktop: mt-6 (unchanged) */}
@@ -62,7 +62,7 @@ export default function SupportServices() {
     <section className="bg-[#eef2f9]">
       <div className="pb-20 px-4 sm:px-16 max-w-7xl mx-auto">
         {/* Section label */}
-        <p className="text-xl text-[#38b6ff] mb-2 font-normal">
+        <p className="text-lg text-[#38b6ff] mb-4 font-normal">
           Our Support Services
         </p>
 
@@ -70,7 +70,7 @@ export default function SupportServices() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
           {/* Left: heading + image */}
           <div>
-            <h2 className="text-3xl md:text-6xl font-normal text-[#1a1a2e] mb-6">
+            <h2 className="text-3xl md:text-6xl font-normal text-[#1a1a2e] mb-12">
               You Can Trust Us
             </h2>
             {/* mobile: full-width natural height — desktop: fixed size (unchanged) */}

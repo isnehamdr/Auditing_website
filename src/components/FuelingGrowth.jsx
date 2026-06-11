@@ -47,7 +47,7 @@ function StatCard({ label, percent }) {
   return (
     <div
       ref={ref}
-      className="bg-white/95 backdrop-blur-sm px-2 py-5 flex flex-col items-center gap-2 hover:shadow-lg transition-shadow duration-300"
+      className="bg-white/95 backdrop-blur-sm px-2 py-8 flex flex-col items-center gap-2 hover:shadow-lg transition-shadow duration-300"
     >
       <CircleProgress percent={percent} animate={animate} />
       <span className="text-sm sm:text-lg text-gray-800 text-center font-normal leading-tight">
@@ -101,7 +101,7 @@ export default function FuelingGrowth() {
 
             {/* Left */}
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-6xl font-normal text-white mb-6">
                 Fueling Business Growth With Accounting
               </h2>
               <button className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm sm:text-2xl px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
@@ -111,7 +111,7 @@ export default function FuelingGrowth() {
 
             {/* Right */}
             <div>
-              <p className="text-sm sm:text-2xl text-blue-100 mb-6 text-center lg:text-left">
+              <p className="text-sm sm:text-2xl text-blue-100 mb-8 text-center lg:text-left">
                 This approach underscores the idea that effective financial
                 management, facilitated by accounting practices, acts as a
                 catalyst for overall business success.

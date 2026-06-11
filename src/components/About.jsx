@@ -35,7 +35,7 @@ const About = () => {
           </h2>
 
           {/* Body text */}
-          <p className="text-gray-700 text-sm sm:text-xl max-w-xl">
+          <p className="text-gray-700 text-sm sm:text-lg max-w-xl">
             The profession also upholds ethical standards and often requires continuing
             education to stay abreast of changes in accounting principles, tax laws,
             and technology.
@@ -46,7 +46,7 @@ const About = () => {
             {features.map((f) => (
               <div key={f.label} className="flex items-start gap-2">
                 <ChevronDoubleRight />
-                <span className="text-gray-800 text-sm sm:text-2xl font-medium">{f.label}</span>
+                <h3 className="text-gray-800 text-sm sm:text-2xl font-medium">{f.label}</h3>
               </div>
             ))}
           </div>
@@ -71,7 +71,7 @@ const About = () => {
           </div>
 
           {/* Blue caption box overlapping the bottom of the image */}
-          <div className="bg-[#38b6ff] text-white text-md sm:text-2xl px-5 py-5  lg:rounded-b-none lg:rounded-br-lg -mt-1">
+          <div className="bg-[#38b6ff] text-white text-md sm:text-xl px-5 py-5  lg:rounded-b-none lg:rounded-br-lg -mt-1">
             <p>
               By analyzing historical financial data and projecting future trends,
               businesses can create realistic budgets, set financial goals, and plan

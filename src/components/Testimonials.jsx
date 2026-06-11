@@ -37,7 +37,7 @@ const TestimonialCard = ({ name, rating, text }) => (
       <span className="text-2xl font-normal text-[#38b6ff]">{name}</span>
       <StarRating rating={rating} />
     </div>
-    <p className="text-xl text-gray-700 leading-relaxed">{text}</p>
+    <p className="text-lg text-gray-700 ">{text}</p>
   </div>
 );
 

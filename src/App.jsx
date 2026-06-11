@@ -1,35 +1,34 @@
 import { useState } from 'react'
-
 import './App.css'
+// ✅ FIX: Import BrowserRouter instead of Router
+import { Route, BrowserRouter, Routes } from 'react-router-dom'
+import Home from './Pages/Home'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Services from './components/Services'
-import About from './components/About'
-import AdvantagesSection from './components/Advantagessection'
-import SupportServices from './components/Supportservices'
-import Testimonials from './components/Testimonials'
-import Process from './components/Process'
-import FuelingGrowth from './components/Fuelinggrowth'
 import Footer from './components/Footer'
 import BackToTop from './components/BacktoTop'
+import AboutPage from './Pages/AboutPage'
+import OurTeam from './Pages/OurTeam'
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0) // You can remove this if you aren't using it
 
   return (
     <>
-    <Navbar/>
-    <BackToTop/>
-    <Hero/>
-<Services/>
-<About/>
-<AdvantagesSection/>
-<SupportServices/>
-<Testimonials/>
-<Process/>
-<FuelingGrowth/>
-<Footer/>
- 
+      {/* ✅ FIX: Use BrowserRouter here */}
+      <BrowserRouter>
+        <Navbar />
+        <BackToTop />
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage/>} />
+          <Route path="/team" element={<OurTeam />} />
+        </Routes>
+        
+        <Footer />
+      </BrowserRouter>
     </>
   )
 }

@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
-body {
-    font-family: 'Apsketa';
+@font-face {
+  font-family: "Aspekta";
+  src: url("/fonts/otf/Aspekta-200.otf") format("opentype");
+
+  font-style: normal;
+  font-display: swap;
 }
+
+@font-face {
+  font-family: "Mulat Addis";
+  src: url("/public/fonts/mulat-addis/MulatAddis-Regular.ttf") format("truetype");
+
+  font-style: normal;
+  font-display: swap;
+}
+
+button,p,a {
+  font-family: "Aspekta", sans-serif;
+}
+
+h1,h2,h3{
+  font-family: "Mulat Addis", sans-serif;
+}
+

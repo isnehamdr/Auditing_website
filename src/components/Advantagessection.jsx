@@ -68,13 +68,13 @@ const AdvantagesSection = () => {
           </div>
 
           {/* Right: Heading + CTA */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 max-w-xl">
             <p className="text-[#38b6ff] text-xl font-medium mt-8">Advantages</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-normal text-gray-900">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-gray-900">
               Empowering Decisions With Financial Precision
             </h2>
-            <p className="text-gray-800 text-sm sm:text-xl max-w-2xl">
-              A top-tier chartered accountancy firm based in Nepal, specializing in audit, tax, and advisory services, aims to increase its length of operations, ensuring long-term sustainability, deeper client relationships, and a lasting footprint in the Nepalese financial landscape.
+            <p className="text-gray-800 text-sm sm:text-xl ">
+              A top-tier chartered accountancy firm based in Nepal, specializing in audit, tax, and advisory services, aims to increase its length of operations, ensuring long-term sustainability, deeper client relationships.
             </p>
             <div className="pt-2">
               <button className="bg-[#38b6ff] hover:bg-blue-700 active:scale-95 text-white text-sm sm:text-lg font-semibold px-8 py-3.5 rounded-full transition-all duration-200">

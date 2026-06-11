@@ -38,13 +38,13 @@ export default function Footer() {
                 <div className="absolute inset-0 rounded-full border-2 border-white opacity-60"></div>
                 <div className="absolute inset-[3px] rounded-full bg-white opacity-80"></div>
               </div>
-              <span className="text-white font-normal text-2xl sm:text-4xl">
+              <span className="text-white font-normal text-2xl sm:text-3xl">
                 Accountant
               </span>
             </div>
 
             {/* Description */}
-            <p className="text-white text-base sm:text-lg mb-5 leading-relaxed">
+            <p className="text-white text-base sm:text-lg mb-5 ">
               An accountant is a professional responsible for managing
               financial records, preparing financial statements, and ensuring
               compliance with relevant laws and regulations.
@@ -65,7 +65,7 @@ export default function Footer() {
               <ul key={i} className="flex flex-col gap-3">
                 {col.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-sm sm:text-lg text-white transition-colors hover:text-blue-300 break-words">
+                    <a href="#" className="text-sm sm:text-md text-white transition-colors hover:text-blue-300 break-words">
                       {link}
                     </a>
                   </li>
@@ -111,10 +111,18 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm text-gray-400">
-          <span>© P Sandeep Assocation Charted Accountants. All Rights Reserved. Licensing</span>
-          <span className="sm:text-right">
-            Crafted By : S.A I.T Solution Trade & Concern
-          </span>
+<span>© PSandeep Associates Chartered Accountants. All Rights Reserved.</span>      
+  <span className="sm:text-right">
+  Crafted By :{" "}
+  <a
+    href="https://saitsolution.com.np"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    S.A I.T Solution Nepal
+  </a>
+</span>
         </div>
       </div>
 
