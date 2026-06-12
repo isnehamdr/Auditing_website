@@ -75,10 +75,10 @@ export default function BusinessGrow() {
       style={{
         background:
           "linear-gradient(rgba(8,18,55,0.88), rgba(8,18,55,0.88)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80') center/cover no-repeat",
-        minHeight: 540,
+        minHeight: 640,
       }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto mt-12 sm:px-16">
         {/* Heading */}
         <h2
           className="text-white text-center font-medium text-6xl tracking-wide mb-11"

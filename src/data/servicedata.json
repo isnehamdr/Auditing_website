@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "slug": "financial-analysis",
+    "title": "Financial Analysis",
+    "icon": "pencil",
+    "description": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+    "detail": {
+      "heroDescription": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "featureImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      "introParagraph": "Financial analysis refers to the process of evaluating businesses, projects, budgets, and other finance-related entities to determine their suitability for investment. The goal is to enhance the overall efficiency, functionality, and productivity of a business by enabling seamless data flow and communication between various financial solutions.",
+      "sectionTitle": "Interoperability",
+      "sectionParagraph": "Financial analysis aims to improve interoperability between different financial systems. This allows systems to work together cohesively and share data in a way that enhances overall functionality. Integration ensures that data is synchronized across various financial systems in real-time. This helps in maintaining consistency and accuracy of information across the organization. By integrating financial tools, businesses can streamline their processes and workflows. This reduces manual data entry, minimizes errors, and improves overall operational efficiency.",
+      "aboutImage": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      "aboutText": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "skills": [
+        { "label": "Customized Solutions", "value": 95 },
+        { "label": "Auditing", "value": 88 }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "slug": "software-integration",
+    "title": "Software Integration",
+    "icon": "users",
+    "description": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+    "detail": {
+      "heroDescription": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "featureImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      "introParagraph": "Software integration refers to the process of combining different software systems and applications physically or functionally to act as a coordinated whole. The goal is to enhance the overall efficiency, functionality, and productivity of a business by enabling seamless data flow and communication between various software solutions.",
+      "sectionTitle": "Interoperability",
+      "sectionParagraph": "Software integration aims to improve interoperability between different software applications. This allows systems to work together cohesively and share data in a way that enhances overall functionality. Integration ensures that data is synchronized across various software systems in real-time. This helps in maintaining consistency and accuracy of information across the organization. By integrating software, businesses can streamline their processes and workflows. This reduces manual data entry, minimizes errors, and improves overall operational efficiency.",
+      "aboutImage": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      "aboutText": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "skills": [
+        { "label": "Customized Solutions", "value": 95 },
+        { "label": "Auditing", "value": 88 }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "slug": "compliance-services",
+    "title": "Compliance Services",
+    "icon": "cog",
+    "description": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+    "detail": {
+      "heroDescription": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "featureImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      "introParagraph": "Compliance services refer to the process of ensuring that a company adheres to external laws, regulations, and internal policies. The goal is to enhance the overall efficiency, functionality, and productivity of a business by enabling seamless data flow and communication between various compliance solutions.",
+      "sectionTitle": "Interoperability",
+      "sectionParagraph": "Compliance services aim to improve interoperability between different regulatory systems. This allows systems to work together cohesively and share data in a way that enhances overall functionality. Integration ensures that data is synchronized across various compliance systems in real-time. This helps in maintaining consistency and accuracy of information across the organization. By integrating compliance tools, businesses can streamline their processes and workflows. This reduces manual data entry, minimizes errors, and improves overall operational efficiency.",
+      "aboutImage": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      "aboutText": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "skills": [
+        { "label": "Customized Solutions", "value": 95 },
+        { "label": "Auditing", "value": 88 }
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "slug": "payroll-processing",
+    "title": "Payroll Processing",
+    "icon": "globe",
+    "description": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+    "detail": {
+      "heroDescription": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "featureImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      "introParagraph": "Payroll processing refers to the administration of employee compensation, including the calculation of wages, withholding of taxes, and distribution of paychecks. The goal is to enhance the overall efficiency, functionality, and productivity of a business by enabling seamless data flow and communication between various payroll solutions.",
+      "sectionTitle": "Interoperability",
+      "sectionParagraph": "Payroll processing aims to improve interoperability between different HR and financial systems. This allows systems to work together cohesively and share data in a way that enhances overall functionality. Integration ensures that data is synchronized across various payroll systems in real-time. This helps in maintaining consistency and accuracy of information across the organization. By integrating payroll tools, businesses can streamline their processes and workflows. This reduces manual data entry, minimizes errors, and improves overall operational efficiency.",
+      "aboutImage": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      "aboutText": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "skills": [
+        { "label": "Customized Solutions", "value": 95 },
+        { "label": "Auditing", "value": 88 }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "slug": "bookkeeping",
+    "title": "Bookkeeping",
+    "icon": "book",
+    "description": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+    "detail": {
+      "heroDescription": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "featureImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      "introParagraph": "Bookkeeping refers to the systematic recording of financial transactions and maintaining accurate financial records. The goal is to enhance the overall efficiency, functionality, and productivity of a business by enabling seamless data flow and communication between various bookkeeping solutions.",
+      "sectionTitle": "Interoperability",
+      "sectionParagraph": "Bookkeeping aims to improve interoperability between different accounting systems. This allows systems to work together cohesively and share data in a way that enhances overall functionality. Integration ensures that data is synchronized across various bookkeeping systems in real-time. This helps in maintaining consistency and accuracy of information across the organization. By integrating bookkeeping tools, businesses can streamline their processes and workflows. This reduces manual data entry, minimizes errors, and improves overall operational efficiency.",
+      "aboutImage": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      "aboutText": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "skills": [
+        { "label": "Customized Solutions", "value": 95 },
+        { "label": "Auditing", "value": 88 }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "slug": "auditing",
+    "title": "Auditing",
+    "icon": "file",
+    "description": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+    "detail": {
+      "heroDescription": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "featureImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      "introParagraph": "Auditing refers to the objective examination and evaluation of the financial statements of an organization to ensure that the financial records are a fair and accurate representation of the assertions they claim to represent. The goal is to enhance the overall efficiency, functionality, and productivity of a business by enabling seamless data flow and communication between various auditing solutions.",
+      "sectionTitle": "Interoperability",
+      "sectionParagraph": "Auditing aims to improve interoperability between different financial reporting systems. This allows systems to work together cohesively and share data in a way that enhances overall functionality. Integration ensures that data is synchronized across various auditing systems in real-time. This helps in maintaining consistency and accuracy of information across the organization. By integrating auditing tools, businesses can streamline their processes and workflows. This reduces manual data entry, minimizes errors, and improves overall operational efficiency.",
+      "aboutImage": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80",
+      "aboutText": "These services are designed to help manage financial processes, ensure compliance with regulations, and provide accurate financial information for decision-making.",
+      "skills": [
+        { "label": "Customized Solutions", "value": 95 },
+        { "label": "Auditing", "value": 88 }
+      ]
+    }
+  }
+]

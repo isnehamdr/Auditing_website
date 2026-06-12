@@ -53,8 +53,8 @@ const Hero = () => {
 
       {/* ── DESKTOP layout: original side-by-side ── */}
       <div className="hidden md:flex relative z-10 max-w-7xl mx-auto w-full min-h-screen flex-row">
-        <div className="relative z-10 flex flex-col justify-center w-full md:w-1/2 px-8 md:px-12 pt-32 md:py-12 overflow-hidden">
-          <h1 className="text-white text-4xl md:text-5xl lg:text-7xl font-normal mb-6">
+        <div className="relative z-10 flex flex-col justify-center  md:w-1/2 px-8 md:px-12  md:py-12 overflow-hidden">
+          <h1 className="text-white text-4xl md:text-5xl lg:text-7xl font-normal mb-6 mt-24">
             Audit, tax, and
             <br />
             advisory, Built around

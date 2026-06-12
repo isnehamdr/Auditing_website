@@ -1,0 +1,622 @@
+[
+  {
+    "id": 1,
+    "name": "Construction Industry",
+    "slug": "construction-industry",
+    "tagline": "Building stronger foundations with smart financial solutions",
+    "heroImage": "/images/construction.jpg",
+    "featureImage": "/images/construction.jpg",
+    "detail": {
+      "overview": "The construction industry faces unique financial challenges including project-based accounting, cash flow management, equipment depreciation, and regulatory compliance. Our specialized accounting solutions help construction firms manage complex project finances, track costs in real-time, and ensure profitability on every project.",
+      "challenges": [
+        "Managing project-based cash flow across multiple sites",
+        "Complex tax regulations and lien waivers",
+        "Equipment depreciation and asset tracking",
+        "Subcontractor payment and compliance management",
+        "Change order tracking and billing"
+      ],
+      "solutions": [
+        "Project-based accounting with real-time cost tracking",
+        "Automated tax filing and compliance management",
+        "Equipment asset management and depreciation tools",
+        "Streamlined subcontractor payment processing",
+        "Change order management and automated billing"
+      ],
+      "keyServices": [
+        {
+          "title": "Project Accounting",
+          "description": "Track costs, revenue, and profitability per project with real-time dashboards"
+        },
+        {
+          "title": "Construction Tax Planning",
+          "description": "Strategic tax solutions including progress billing and equipment depreciation"
+        },
+        {
+          "title": "Payroll Management",
+          "description": "Handle union wages, prevailing wage requirements, and certified payroll reporting"
+        },
+        {
+          "title": "Job Costing",
+          "description": "Detailed tracking of labor, materials, equipment, and subcontractor costs"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Industry Expertise",
+          "description": "15+ years specializing in construction accounting"
+        },
+        {
+          "title": "Proven Results",
+          "description": "Helped 200+ construction firms increase profitability"
+        },
+        {
+          "title": "Dedicated Support",
+          "description": "24/7 access to construction accounting specialists"
+        }
+      ],
+      "caseStudy": {
+        "client": "Highland Construction Group",
+        "description": "A mid-sized commercial construction company with 15 active projects and $50M annual revenue was struggling with cash flow management and project profitability tracking.",
+        "result": "25% improvement in cash flow, 40% faster invoice processing, and 15% increase in project profit margins"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Energy Industry",
+    "slug": "energy-industry",
+    "tagline": "Power your business with smart financial strategies",
+    "heroImage": "/images/energy.jpeg",
+    "featureImage": "/images/energy.jpeg",
+    "detail": {
+      "overview": "The energy sector faces complex financial challenges including regulatory compliance, volatile commodity prices, capital-intensive projects, and environmental regulations. Our specialized accounting services help energy companies navigate these challenges while maximizing profitability and ensuring compliance.",
+      "challenges": [
+        "Regulatory compliance and reporting requirements",
+        "Capital-intensive project financing",
+        "Asset depreciation and depletion accounting",
+        "Hedging and risk management",
+        "Environmental compliance costs"
+      ],
+      "solutions": [
+        "Automated regulatory reporting and compliance tracking",
+        "Project financing and capital planning tools",
+        "Asset management with depletion accounting",
+        "Risk management and hedging strategies",
+        "Environmental cost tracking and reporting"
+      ],
+      "keyServices": [
+        {
+          "title": "Project Financing",
+          "description": "Capital planning and financing solutions for energy projects"
+        },
+        {
+          "title": "Asset Management",
+          "description": "Track energy assets, depreciation, and depletion"
+        },
+        {
+          "title": "Regulatory Compliance",
+          "description": "Ensure compliance with FERC, SEC, and environmental regulations"
+        },
+        {
+          "title": "Risk Management",
+          "description": "Hedging strategies for commodity price volatility"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Energy Specialists",
+          "description": "Deep understanding of energy sector accounting"
+        },
+        {
+          "title": "Compliance Experts",
+          "description": "Up-to-date with all regulatory requirements"
+        },
+        {
+          "title": "Strategic Partners",
+          "description": "Long-term growth and sustainability focus"
+        }
+      ],
+      "caseStudy": {
+        "client": "Green Energy Solutions",
+        "description": "A renewable energy company with multiple solar and wind projects needed help with project financing, tax credits, and regulatory compliance across 8 states.",
+        "result": "Secured $15M in tax credits, reduced compliance costs by 30%, and improved project ROI by 22%"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "Mineral Industry",
+    "slug": "mineral-industry",
+    "tagline": "Extract maximum value from your mining operations",
+    "heroImage": "/images/mineral.jpeg",
+    "featureImage": "/images/mineral.jpeg",
+    "detail": {
+      "overview": "The mineral and mining industry requires specialized accounting for exploration costs, depletion accounting, environmental rehabilitation, and complex royalty arrangements. Our expert team helps mining companies optimize financial performance while managing unique industry challenges.",
+      "challenges": [
+        "Exploration cost capitalization vs. expensing",
+        "Depletion accounting for mineral reserves",
+        "Environmental rehabilitation provisions",
+        "Complex royalty and streaming arrangements",
+        "Cross-border tax implications"
+      ],
+      "solutions": [
+        "Exploration cost management and tracking",
+        "Depletion accounting and reserve reporting",
+        "Environmental liability tracking and provisions",
+        "Royalty and streaming agreement management",
+        "International tax planning and compliance"
+      ],
+      "keyServices": [
+        {
+          "title": "Exploration Accounting",
+          "description": "Track and capitalize exploration costs properly"
+        },
+        {
+          "title": "Depletion Accounting",
+          "description": "Manage mineral reserve depletion calculations"
+        },
+        {
+          "title": "Royalty Management",
+          "description": "Track and report complex royalty arrangements"
+        },
+        {
+          "title": "Environmental Accounting",
+          "description": "Manage rehabilitation provisions and environmental costs"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Mining Experts",
+          "description": "Specialized knowledge of mining accounting"
+        },
+        {
+          "title": "Global Reach",
+          "description": "Experience with international mining operations"
+        },
+        {
+          "title": "Compliance Focus",
+          "description": "Ensure adherence to industry-specific regulations"
+        }
+      ],
+      "caseStudy": {
+        "client": "Northern Mining Corp",
+        "description": "A global mining company with operations in 5 countries needed help with depletion accounting, cross-border tax optimization, and environmental rehabilitation provisions.",
+        "result": "Optimized tax position saving $8M annually, improved reserve reporting accuracy by 95%, and streamlined environmental compliance"
+      }
+    }
+  },
+  {
+    "id": 4,
+    "name": "Manufacturing Industry",
+    "slug": "manufacturing-industry",
+    "tagline": "Streamline your manufacturing operations with precision accounting",
+    "heroImage": "/images/manufacturing.jpeg",
+    "featureImage": "/images/manufacturing.jpeg",
+    "detail": {
+      "overview": "Manufacturing companies face unique challenges in cost accounting, inventory management, supply chain optimization, and production efficiency. Our specialized manufacturing accounting solutions help you track costs accurately, optimize inventory levels, and maximize operational efficiency.",
+      "challenges": [
+        "Complex cost accounting and allocation",
+        "Raw material and finished goods inventory management",
+        "Supply chain cost optimization",
+        "Equipment depreciation and maintenance tracking",
+        "Quality control and waste management costs"
+      ],
+      "solutions": [
+        "Activity-based costing and overhead allocation",
+        "Real-time inventory tracking and optimization",
+        "Supply chain cost analysis and reduction strategies",
+        "Equipment asset management and maintenance scheduling",
+        "Waste reduction and quality control cost tracking"
+      ],
+      "keyServices": [
+        {
+          "title": "Cost Accounting",
+          "description": "Track direct and indirect costs with activity-based costing"
+        },
+        {
+          "title": "Inventory Management",
+          "description": "Optimize raw materials, WIP, and finished goods inventory"
+        },
+        {
+          "title": "Supply Chain Finance",
+          "description": "Manage supplier costs and logistics optimization"
+        },
+        {
+          "title": "Production Analytics",
+          "description": "Track efficiency, waste, and production costs in real-time"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Manufacturing Focus",
+          "description": "Deep expertise in production accounting"
+        },
+        {
+          "title": "Efficiency Experts",
+          "description": "Proven track record of cost reduction"
+        },
+        {
+          "title": "Integrated Solutions",
+          "description": "Seamless ERP and accounting integration"
+        }
+      ],
+      "caseStudy": {
+        "client": "Precision Manufacturing Inc",
+        "description": "A $100M automotive parts manufacturer struggled with inaccurate cost allocation, excess inventory, and declining profit margins due to inefficient accounting processes.",
+        "result": "Reduced inventory carrying costs by 35%, improved gross margins by 18%, and achieved 99% cost allocation accuracy"
+      }
+    }
+  },
+  {
+    "id": 5,
+    "name": "Trade and Commerce",
+    "slug": "trade-and-commerce",
+    "tagline": "Optimize your trading and commercial operations",
+    "heroImage": "/images/trade.jpeg",
+    "featureImage": "/images/trade.jpeg",
+    "detail": {
+      "overview": "The trade and commerce sector requires specialized accounting for inventory valuation, multi-currency transactions, international trade compliance, and complex revenue recognition. Our expert team helps trading companies navigate these challenges while maximizing profitability.",
+      "challenges": [
+        "Inventory valuation methods (FIFO, LIFO, weighted average)",
+        "Multi-currency transaction accounting",
+        "International trade compliance and tariffs",
+        "Complex revenue recognition",
+        "Credit risk and accounts receivable management"
+      ],
+      "solutions": [
+        "Advanced inventory valuation and tracking systems",
+        "Multi-currency accounting and hedging solutions",
+        "Trade compliance and tariff management",
+        "Automated revenue recognition systems",
+        "Credit risk assessment and AR optimization"
+      ],
+      "keyServices": [
+        {
+          "title": "Inventory Accounting",
+          "description": "Advanced inventory valuation and cost tracking"
+        },
+        {
+          "title": "International Trade",
+          "description": "Multi-currency and cross-border transaction management"
+        },
+        {
+          "title": "Revenue Recognition",
+          "description": "ASC 606 compliant revenue tracking and reporting"
+        },
+        {
+          "title": "AR Management",
+          "description": "Credit risk assessment and receivables optimization"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Trade Experts",
+          "description": "Specialized knowledge of trading operations"
+        },
+        {
+          "title": "Global Capabilities",
+          "description": "Experience with international trade and currencies"
+        },
+        {
+          "title": "Risk Management",
+          "description": "Proactive credit and market risk strategies"
+        }
+      ],
+      "caseStudy": {
+        "client": "Global Trade Solutions",
+        "description": "An international trading company with operations in 12 countries struggled with multi-currency accounting, inventory valuation, and cross-border tax compliance.",
+        "result": "Reduced currency exchange losses by 40%, improved inventory accuracy by 95%, and achieved full trade compliance"
+      }
+    }
+  },
+  {
+    "id": 6,
+    "name": "Agribusiness",
+    "slug": "agribusiness",
+    "tagline": "Grow your agricultural business with specialized financial solutions",
+    "heroImage": "/images/agribusiness.jpg",
+    "featureImage": "/images/agribusiness.jpg",
+    "detail": {
+      "overview": "Agribusiness companies face unique accounting challenges including biological asset valuation, seasonal cash flow management, government subsidy tracking, and commodity price volatility. Our specialized agricultural accounting services help you navigate these challenges and maximize farm profitability.",
+      "challenges": [
+        "Biological asset valuation (livestock, crops)",
+        "Seasonal cash flow and working capital management",
+        "Government subsidy and program compliance",
+        "Commodity price risk management",
+        "Land and equipment depreciation"
+      ],
+      "solutions": [
+        "Biological asset tracking and valuation systems",
+        "Seasonal cash flow forecasting and management",
+        "Government program compliance and subsidy tracking",
+        "Commodity hedging and risk management strategies",
+        "Farm asset management and depreciation planning"
+      ],
+      "keyServices": [
+        {
+          "title": "Farm Accounting",
+          "description": "Specialized accounting for agricultural operations"
+        },
+        {
+          "title": "Biological Asset Valuation",
+          "description": "Track and value livestock, crops, and other biological assets"
+        },
+        {
+          "title": "Subsidy Management",
+          "description": "Government program compliance and subsidy optimization"
+        },
+        {
+          "title": "Commodity Risk Management",
+          "description": "Hedging strategies for crop and livestock price volatility"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Agricultural Focus",
+          "description": "Deep understanding of farm accounting"
+        },
+        {
+          "title": "Seasonal Expertise",
+          "description": "Specialized in agricultural cash flow cycles"
+        },
+        {
+          "title": "Government Programs",
+          "description": "Expertise in USDA and agricultural subsidies"
+        }
+      ],
+      "caseStudy": {
+        "client": "Harvest Farms Cooperative",
+        "description": "A large agricultural cooperative with 50+ member farms needed help with biological asset valuation, seasonal cash flow management, and government subsidy optimization.",
+        "result": "Increased subsidy capture by 25%, improved cash flow during off-season by 40%, and achieved accurate biological asset valuation"
+      }
+    }
+  },
+  {
+    "id": 7,
+    "name": "Technology & Software",
+    "slug": "technology-software",
+    "tagline": "Accelerate your tech growth with modern financial solutions",
+    "heroImage": "/images/technology.jpeg",
+    "featureImage": "/images/technology.jpeg",
+    "detail": {
+      "overview": "Technology and software companies face unique accounting challenges including software capitalization, SaaS revenue recognition, R&D tax credits, and intellectual property valuation. Our specialized tech accounting services help you navigate these complexities while maximizing growth and profitability.",
+      "challenges": [
+        "Software development cost capitalization (ASC 350-40)",
+        "SaaS revenue recognition (ASC 606)",
+        "R&D tax credit calculation and documentation",
+        "Intellectual property valuation and amortization",
+        "Subscription billing and deferred revenue"
+      ],
+      "solutions": [
+        "Software cost capitalization tracking and compliance",
+        "Automated SaaS revenue recognition systems",
+        "R&D tax credit optimization and documentation",
+        "IP valuation and amortization strategies",
+        "Subscription billing and revenue management"
+      ],
+      "keyServices": [
+        {
+          "title": "SaaS Accounting",
+          "description": "Revenue recognition and subscription management"
+        },
+        {
+          "title": "R&D Tax Credits",
+          "description": "Maximize R&D tax credit benefits"
+        },
+        {
+          "title": "Software Capitalization",
+          "description": "ASC 350-40 compliant cost capitalization"
+        },
+        {
+          "title": "IP Management",
+          "description": "Intellectual property valuation and protection"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Tech Specialists",
+          "description": "Deep expertise in software and SaaS accounting"
+        },
+        {
+          "title": "Growth Focused",
+          "description": "Scalable solutions for growing tech companies"
+        },
+        {
+          "title": "Innovation Partners",
+          "description": "Forward-thinking financial strategies"
+        }
+      ],
+      "caseStudy": {
+        "client": "CloudSoft Solutions",
+        "description": "A fast-growing SaaS company with $20M ARR needed help with ASC 606 compliance, R&D tax credits, and software capitalization for their development team.",
+        "result": "Captured $1.5M in R&D tax credits, achieved full ASC 606 compliance, and properly capitalized $3M in software development costs"
+      }
+    }
+  },
+  {
+    "id": 8,
+    "name": "Service Industry",
+    "slug": "service-industry",
+    "tagline": "Elevate your service business with strategic financial management",
+    "heroImage": "/images/service.jpeg",
+    "featureImage": "/images/service.jpeg",
+    "detail": {
+      "overview": "Service industry businesses face unique accounting challenges including time and billing tracking, project profitability, utilization rates, and complex compensation structures. Our specialized service industry accounting helps you optimize operations and maximize profitability.",
+      "challenges": [
+        "Time tracking and billable hours management",
+        "Project profitability and margin analysis",
+        "Professional compensation and bonus structures",
+        "Utilization rate optimization",
+        "Client retainer and subscription management"
+      ],
+      "solutions": [
+        "Automated time tracking and billing systems",
+        "Real-time project profitability dashboards",
+        "Performance-based compensation planning",
+        "Utilization tracking and optimization tools",
+        "Retainer and subscription management"
+      ],
+      "keyServices": [
+        {
+          "title": "Professional Services Accounting",
+          "description": "Time tracking, billing, and project profitability"
+        },
+        {
+          "title": "Compensation Planning",
+          "description": "Performance-based compensation structures"
+        },
+        {
+          "title": "Utilization Management",
+          "description": "Track and optimize billable utilization rates"
+        },
+        {
+          "title": "Retainer Accounting",
+          "description": "Manage client retainers and subscriptions"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Service Experts",
+          "description": "Deep understanding of professional services"
+        },
+        {
+          "title": "Profitability Focus",
+          "description": "Proven strategies to improve margins"
+        },
+        {
+          "title": "Scalable Solutions",
+          "description": "Grow from small firm to enterprise"
+        }
+      ],
+      "caseStudy": {
+        "client": "Premier Consulting Group",
+        "description": "A professional services firm with 200+ consultants struggled with utilization tracking, project profitability, and complex partner compensation structures.",
+        "result": "Increased utilization by 25%, improved project margins by 30%, and implemented equitable partner compensation system"
+      }
+    }
+  },
+  {
+    "id": 9,
+    "name": "Financial Sector",
+    "slug": "financial-sector",
+    "tagline": "Navigate financial services with expert accounting solutions",
+    "heroImage": "/images/financial.jpeg",
+    "featureImage": "/images/financial.jpeg",
+    "detail": {
+      "overview": "Financial services companies face complex regulatory requirements, investment accounting, risk management, and compliance challenges. Our specialized financial services accounting helps you navigate regulatory requirements while optimizing financial performance.",
+      "challenges": [
+        "Investment portfolio accounting and valuation",
+        "Regulatory compliance (SEC, FINRA, FDIC)",
+        "Risk management and capital adequacy",
+        "Complex financial instrument accounting",
+        "Anti-money laundering (AML) compliance"
+      ],
+      "solutions": [
+        "Investment accounting and fair value measurement",
+        "Automated regulatory reporting and compliance",
+        "Enterprise risk management frameworks",
+        "Derivative and hedging accounting",
+        "AML compliance and monitoring systems"
+      ],
+      "keyServices": [
+        {
+          "title": "Investment Accounting",
+          "description": "Portfolio valuation and investment tracking"
+        },
+        {
+          "title": "Regulatory Compliance",
+          "description": "SEC, FINRA, and banking compliance"
+        },
+        {
+          "title": "Risk Management",
+          "description": "Capital adequacy and risk frameworks"
+        },
+        {
+          "title": "Financial Instruments",
+          "description": "Derivative, hedging, and complex instrument accounting"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Financial Experts",
+          "description": "Deep expertise in financial services regulation"
+        },
+        {
+          "title": "Compliance Focus",
+          "description": "Up-to-date with all regulatory requirements"
+        },
+        {
+          "title": "Risk Specialists",
+          "description": "Proven risk management frameworks"
+        }
+      ],
+      "caseStudy": {
+        "client": "Metropolitan Investment Group",
+        "description": "A regional investment firm with $2B AUM needed help with investment accounting, SEC compliance, and risk management framework implementation.",
+        "result": "Achieved full SEC compliance, reduced reporting errors by 95%, and implemented comprehensive risk management framework"
+      }
+    }
+  },
+  {
+    "id": 10,
+    "name": "Hospitality & Tourism",
+    "slug": "hospitality-tourism",
+    "tagline": "Create unforgettable experiences with smart financial management",
+    "heroImage": "/images/hospitality.jpeg",
+    "featureImage": "/images/hospitality.jpeg",
+    "detail": {
+      "overview": "The hospitality and tourism industry faces unique accounting challenges including seasonal revenue fluctuations, complex labor management, inventory control, and multi-property operations. Our specialized hospitality accounting helps you maximize occupancy, control costs, and improve guest experiences.",
+      "challenges": [
+        "Seasonal revenue and occupancy management",
+        "Complex labor scheduling and tip reporting",
+        "Food and beverage inventory control",
+        "Multi-property financial consolidation",
+        "OTA commission and revenue management"
+      ],
+      "solutions": [
+        "Seasonal cash flow forecasting and management",
+        "Automated payroll and tip reporting systems",
+        "Real-time inventory tracking and cost control",
+        "Multi-property financial consolidation tools",
+        "OTA commission tracking and reconciliation"
+      ],
+      "keyServices": [
+        {
+          "title": "Hotel Accounting",
+          "description": "Property-level financial management and reporting"
+        },
+        {
+          "title": "Inventory Control",
+          "description": "Food, beverage, and supplies management"
+        },
+        {
+          "title": "Labor Management",
+          "description": "Scheduling, payroll, and tip compliance"
+        },
+        {
+          "title": "Revenue Management",
+          "description": "Occupancy optimization and rate strategies"
+        }
+      ],
+      "whyChooseUs": [
+        {
+          "title": "Hospitality Experts",
+          "description": "Deep understanding of hotel and tourism operations"
+        },
+        {
+          "title": "Seasonal Specialists",
+          "description": "Expertise in managing seasonal fluctuations"
+        },
+        {
+          "title": "Multi-Property Experience",
+          "description": "Proven systems for portfolio management"
+        }
+      ],
+      "caseStudy": {
+        "client": "Coastal Hospitality Group",
+        "description": "A hotel group with 15 properties struggled with seasonal cash flow, multi-property consolidation, and OTA commission reconciliation across their portfolio.",
+        "result": "Improved cash flow during off-season by 45%, reduced OTA commission leakage by 20%, and achieved real-time portfolio visibility"
+      }
+    }
+  }
+]

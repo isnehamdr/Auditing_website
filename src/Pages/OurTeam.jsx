@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BusinessGrow from "../components/Businessgrow";
+import FAQ from "../components/FAQ";
 
 const teamMembers = [
   {
@@ -56,7 +57,7 @@ export default function OurTeam() {
         style={{
           background:
             "linear-gradient(rgba(10,22,50,0.60), rgba(10,22,50,0.60)), url('/images/bgteam.webp') center/cover no-repeat",
-          minHeight: 480,
+          minHeight: 540,
         }}
       >
         <h1
@@ -118,6 +119,7 @@ export default function OurTeam() {
       </div>
 
       <BusinessGrow/>
+      <FAQ/>
     </>
     
   );
