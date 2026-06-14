@@ -66,7 +66,7 @@ const ServiceCard = ({ icon, title, description, index, slug }) => {
   };
 
   return ( 
-    <div ref={cardRef} className="relative flex flex-col items-center text-center bg-white border border-gray-100 px-6 sm:px-8 pt-12 sm:pt-14 pb-10 shadow-sm hover:shadow-md transition-shadow duration-300 mt-6 sm:mt-7 opacity-0" > 
+    <div ref={cardRef} className="relative flex flex-col items-center text-center bg-white border border-gray-100 rounded-xl px-6 sm:px-8 pt-12 sm:pt-14 pb-10 shadow-sm hover:shadow-md transition-shadow duration-300 mt-6 sm:mt-7 opacity-0" > 
       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-[#38b6ff] flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110 hover:rotate-12"> 
         {icon} 
       </div> 

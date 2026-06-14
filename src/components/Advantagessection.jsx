@@ -286,7 +286,7 @@ const AdvantagesSection = () => {
           className="max-w-7xl mx-auto lg:px-20"
         >
           <div 
-            className="border-dotted border-[#38b6ff] border-2 p-6 sm:p-8 mt-10 rounded-md transition-all duration-700"
+            className="border-dotted border-[#38b6ff]  bg-white border-2 p-6 sm:p-8 mt-10 rounded-md transition-all duration-700"
             style={{
               opacity: animatedStats ? 1 : 0,
               transform: animatedStats ? 'translateY(0)' : 'translateY(50px)',

@@ -66,8 +66,8 @@
     "name": "Energy Industry",
     "slug": "energy-industry",
     "tagline": "Power your business with smart financial strategies",
-    "heroImage": "/images/energy.jpeg",
-    "featureImage": "/images/energy.jpeg",
+    "heroImage": "/images/energy.jpg",
+    "featureImage": "/images/energy.jpg",
     "detail": {
       "overview": "The energy sector faces complex financial challenges including regulatory compliance, volatile commodity prices, capital-intensive projects, and environmental regulations. Our specialized accounting services help energy companies navigate these challenges while maximizing profitability and ensuring compliance.",
       "challenges": [
@@ -128,8 +128,8 @@
     "name": "Mineral Industry",
     "slug": "mineral-industry",
     "tagline": "Extract maximum value from your mining operations",
-    "heroImage": "/images/mineral.jpeg",
-    "featureImage": "/images/mineral.jpeg",
+    "heroImage": "/images/mineral.avif",
+    "featureImage": "/images/mineral.avif",
     "detail": {
       "overview": "The mineral and mining industry requires specialized accounting for exploration costs, depletion accounting, environmental rehabilitation, and complex royalty arrangements. Our expert team helps mining companies optimize financial performance while managing unique industry challenges.",
       "challenges": [
@@ -190,8 +190,8 @@
     "name": "Manufacturing Industry",
     "slug": "manufacturing-industry",
     "tagline": "Streamline your manufacturing operations with precision accounting",
-    "heroImage": "/images/manufacturing.jpeg",
-    "featureImage": "/images/manufacturing.jpeg",
+    "heroImage": "/images/manufacturing.avif",
+    "featureImage": "/images/manufacturing.avif",
     "detail": {
       "overview": "Manufacturing companies face unique challenges in cost accounting, inventory management, supply chain optimization, and production efficiency. Our specialized manufacturing accounting solutions help you track costs accurately, optimize inventory levels, and maximize operational efficiency.",
       "challenges": [
@@ -252,8 +252,8 @@
     "name": "Trade and Commerce",
     "slug": "trade-and-commerce",
     "tagline": "Optimize your trading and commercial operations",
-    "heroImage": "/images/trade.jpeg",
-    "featureImage": "/images/trade.jpeg",
+    "heroImage": "/images/trade.avif",
+    "featureImage": "/images/trade.avif",
     "detail": {
       "overview": "The trade and commerce sector requires specialized accounting for inventory valuation, multi-currency transactions, international trade compliance, and complex revenue recognition. Our expert team helps trading companies navigate these challenges while maximizing profitability.",
       "challenges": [
@@ -376,8 +376,8 @@
     "name": "Technology & Software",
     "slug": "technology-software",
     "tagline": "Accelerate your tech growth with modern financial solutions",
-    "heroImage": "/images/technology.jpeg",
-    "featureImage": "/images/technology.jpeg",
+    "heroImage": "/images/technology.avif",
+    "featureImage": "/images/technology.avif",
     "detail": {
       "overview": "Technology and software companies face unique accounting challenges including software capitalization, SaaS revenue recognition, R&D tax credits, and intellectual property valuation. Our specialized tech accounting services help you navigate these complexities while maximizing growth and profitability.",
       "challenges": [
@@ -438,8 +438,8 @@
     "name": "Service Industry",
     "slug": "service-industry",
     "tagline": "Elevate your service business with strategic financial management",
-    "heroImage": "/images/service.jpeg",
-    "featureImage": "/images/service.jpeg",
+    "heroImage": "/images/service.avif",
+    "featureImage": "/images/service.avif",
     "detail": {
       "overview": "Service industry businesses face unique accounting challenges including time and billing tracking, project profitability, utilization rates, and complex compensation structures. Our specialized service industry accounting helps you optimize operations and maximize profitability.",
       "challenges": [
@@ -500,8 +500,8 @@
     "name": "Financial Sector",
     "slug": "financial-sector",
     "tagline": "Navigate financial services with expert accounting solutions",
-    "heroImage": "/images/financial.jpeg",
-    "featureImage": "/images/financial.jpeg",
+    "heroImage": "/images/financial.jpg",
+    "featureImage": "/images/financial.jpg",
     "detail": {
       "overview": "Financial services companies face complex regulatory requirements, investment accounting, risk management, and compliance challenges. Our specialized financial services accounting helps you navigate regulatory requirements while optimizing financial performance.",
       "challenges": [

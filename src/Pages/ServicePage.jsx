@@ -100,7 +100,7 @@ function ServiceCard({ icon, title, slug, desc, index }) {
       onMouseLeave={() => handleCardHover(false)}
       className="bg-white border border-gray-100 p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow duration-200"
     >
-      <div className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center mb-5">{icon}</div>
+      <div className="w-14 h-14 rounded-full bg-[#38b6ff] flex items-center justify-center mb-5">{icon}</div>
       <h3 className="text-gray-800 font-medium text-3xl mb-3">{title}</h3>
       <p className="text-gray-900 text-md mb-6">{desc}</p>
       <Link to={`/service-page/${slug}`} className="border border-gray-300 bg-blue-50 text-gray-600 hover:border-white hover:text-[#38b6ff] text-md px-5 py-3 rounded-full transition-colors duration-200">

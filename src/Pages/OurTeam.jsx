@@ -8,20 +8,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const teamMembers = [
   {
-    name: "Theresa Webb",
-    role: "Bookkeeper",
-    photo: "/images/t1.webp",
+    name: "CA Sandeep Paudel",
+    role: "Proprietor",
+    photo: "/images/t1.png",
   },
-  {
-    name: "Nansi Link",
-    role: "Auditor",
-    photo: "/images/t2.webp",
-  },
-  {
-    name: "Jessica Robinson",
-    role: "Accountant",
-    photo: "/images/t3.webp",
-  },
+  // {
+  //   name: "Nansi Link",
+  //   role: "Auditor",
+  //   photo: "/images/t2.webp",
+  // },
+  // {
+  //   name: "Jessica Robinson",
+  //   role: "Accountant",
+  //   photo: "/images/t3.webp",
+  // },
 ];
 
 function InstagramIcon() {

@@ -55,8 +55,19 @@ const industries = [
 
 const navLinks = ["Home", "About", "Team", "Services", "Industries", "Blog"];
 
+// Get all industry slugs
+const industrySlugsList = industries.flatMap(col => col.items.map(item => item.slug));
+
+// Check if a path is active for nav links
+const isNavActive = (pathname, linkPath) => {
+  if (linkPath === "/") {
+    return pathname === "/";
+  }
+  return pathname === linkPath || pathname.startsWith(`${linkPath}/`);
+};
+
 // Smooth Link Component with page transitions
-const SmoothLink = ({ to, children, onClick, className, style }) => {
+const SmoothLink = ({ to, children, onClick, className, style, isActive }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -105,61 +116,82 @@ const SmoothLink = ({ to, children, onClick, className, style }) => {
     });
   };
   
+  // Add active state styling
+  const activeStyles = isActive ? {
+    fontWeight: '600',
+    position: 'relative',
+  } : {};
+  
   return (
-    <Link to={to} onClick={handleClick} className={className} style={style}>
+    <Link to={to} onClick={handleClick} className={className} style={{ ...style, ...activeStyles }}>
       {children}
+      {isActive && (
+        <span className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-[#38b6ff] rounded-full" />
+      )}
     </Link>
   );
 };
 
 // ── Mega Dropdown - Direct to slug (no prefix) ──────────────────────────────
-const IndustriesDropdown = ({ onClose }) => (
-  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[860px] max-w-[95vw] bg-white border border-gray-200 rounded-xl shadow-2xl z-50 overflow-hidden">
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-      {industries.map((col, ci) => (
-        <div key={ci} className="p-6 border-r border-gray-100 last:border-r-0">
-          <p className="text-lg font-normal text-[#38b6ff] uppercase mb-3 pb-3 border-b border-gray-100">
-            {col.category}
-          </p>
-          <ul className="flex flex-col gap-3">
-            {col.items.map((item) => (
-              <li key={item.label}>
+const IndustriesDropdown = ({ onClose }) => {
+  const location = useLocation();
+  
+  return (
+    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[1100px] max-w-[95vw] bg-white border border-gray-200 rounded-xl shadow-2xl z-50 overflow-hidden">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {industries.map((col, ci) => (
+          <div key={ci} className="p-6 border-r border-gray-100 last:border-r-0">
+            <p className="text-lg font-normal text-[#38b6ff] uppercase mb-3 pb-3 border-b border-gray-100 whitespace-nowrap">
+              {col.category}
+            </p>
+            <ul className="flex flex-col gap-3">
+              {col.items.map((item) => {
+                const isActive = location.pathname === `/${item.slug}`;
+                return (
+                  <li key={item.label}>
+                    <SmoothLink
+                      to={`/${item.slug}`}
+                      onClick={onClose}
+                      className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-[#38b6ff] ${
+                        isActive ? "text-[#38b6ff]" : "text-black"
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                        isActive ? "bg-[#38b6ff]" : "bg-[#38b6ff]"
+                      }`} />
+                      <span>{item.label}</span>
+                    </SmoothLink>
+                  </li>
+                );
+              })}
+            </ul>
+            {col.cta && (
+              <div className="mt-5 rounded-xl bg-gray-50 border border-gray-200 p-4">
+                <p className="text-sm text-gray-400 leading-snug mb-3">
+                  Cross-sector or emerging businesses are welcome to explore.
+                </p>
                 <SmoothLink
-                  to={`/${item.slug}`}
+                  to="/contact"
                   onClick={onClose}
-                  className="flex items-center gap-2 text-sm font-medium text-black transition-colors hover:text-[#38b6ff]"
+                  className="flex items-center justify-between bg-[#38b6ff] hover:bg-blue-400 transition-colors text-white text-sm font-normal rounded-lg px-4 py-2.5"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#38b6ff] flex-shrink-0" />
-                  <span>{item.label}</span>
+                  Contact Us
+                  <ArrowUpRight />
                 </SmoothLink>
-              </li>
-            ))}
-          </ul>
-          {col.cta && (
-            <div className="mt-5 rounded-xl bg-gray-50 border border-gray-200 p-4">
-              <p className="text-sm text-gray-400 leading-snug mb-3">
-                Cross-sector or emerging businesses are welcome to explore.
-              </p>
-              <SmoothLink
-                to="/contact"
-                onClick={onClose}
-                className="flex items-center justify-between bg-[#38b6ff] hover:bg-blue-400 transition-colors text-white text-sm font-normal rounded-lg px-4 py-2.5"
-              >
-                Contact Us
-                <ArrowUpRight />
-              </SmoothLink>
-            </div>
-          )}
-        </div>
-      ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ── Mobile Industries Accordion - Direct to slug ─────────────────────────────
 const MobileIndustriesAccordion = ({ closeMenu }) => {
   const [open, setOpen] = useState(false);
   const contentRef = useRef(null);
+  const location = useLocation();
   
   useEffect(() => {
     if (contentRef.current) {
@@ -202,18 +234,23 @@ const MobileIndustriesAccordion = ({ closeMenu }) => {
                 {col.category}
               </p>
               <ul className="flex flex-col gap-2">
-                {col.items.map((item) => (
-                  <li key={item.label}>
-                    <SmoothLink
-                      to={`/${item.slug}`}
-                      onClick={closeMenu}
-                      className="flex items-center gap-2 text-sm text-gray-300 hover:text-white py-1"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#38b6ff] flex-shrink-0" />
-                      <span>{item.label}</span>
-                    </SmoothLink>
-                  </li>
-                ))}
+                {col.items.map((item) => {
+                  const isActive = location.pathname === `/${item.slug}`;
+                  return (
+                    <li key={item.label}>
+                      <SmoothLink
+                        to={`/${item.slug}`}
+                        onClick={closeMenu}
+                        className={`flex items-center gap-2 text-sm py-1 transition-colors ${
+                          isActive ? "text-[#38b6ff]" : "text-gray-300 hover:text-white"
+                        }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#38b6ff] flex-shrink-0" />
+                        <span>{item.label}</span>
+                      </SmoothLink>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -379,6 +416,19 @@ const Navbar = () => {
     setMenuOpen(true);
   };
 
+  // Helper function to check if a nav link is active
+  const isLinkActive = (link) => {
+    if (link === "Home") {
+      return location.pathname === "/";
+    }
+    if (link === "Industries") {
+      // Check if current path is an industry detail page
+      return industrySlugs.some(slug => location.pathname === `/${slug}`);
+    }
+    const linkPath = `/${link.toLowerCase()}`;
+    return location.pathname === linkPath || location.pathname.startsWith(`${linkPath}/`);
+  };
+
   return (
     <>
       <nav
@@ -387,31 +437,47 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 md:px-12 py-4 md:py-5">
           <SmoothLink to="/" style={navTextStyle} className="flex items-center gap-2 font-semibold text-base sm:text-lg tracking-wide transition-colors duration-300">
-            <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full border-2 ${logoBorderColor} relative transition-colors duration-300`}>
-              <span className={`w-2 h-2 rounded-full ${logoDotBg} absolute transition-colors duration-300`} />
-              <span className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full border ${logoBorderColor} opacity-60 transition-colors duration-300`} />
-            </span>
-            Accountant
+            {/* Logo with proper sizing */}
+            <img 
+              src="/images/logo.jpg" 
+              alt="Logo" 
+              className="h-10 w-auto md:h-12 object-contain"
+              style={{ maxWidth: '100%' }}
+            />
           </SmoothLink>
 
           <ul style={navTextStyle} className="hidden md:flex items-center gap-7 text-lg font-medium transition-colors duration-300">
             {navLinks.map((link) => {
               const pathLink = link === "Home" ? "/" : `/${link.toLowerCase()}`;
+              const isActive = isLinkActive(link);
+              
               return link === "Industries" ? (
                 <li key={link} className="relative" ref={dropdownRef}>
                   <button
                     style={navTextStyle}
-                    className="flex items-center gap-1 cursor-pointer hover:opacity-75 transition-opacity focus:outline-none"
+                    className={`flex items-center gap-1 cursor-pointer hover:opacity-75 transition-opacity focus:outline-none ${
+                      isActive ? "font-semibold" : ""
+                    }`}
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
                     Industries
                     <ChevronDown className={`transition-transform duration-200 mt-0.5 ${dropdownOpen ? "rotate-180" : ""}`} />
                   </button>
+                  {isActive && (
+                    <span className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-[#38b6ff] rounded-full" />
+                  )}
                   {dropdownOpen && <IndustriesDropdown onClose={() => setDropdownOpen(false)} />}
                 </li>
               ) : (
-                <li key={link} className="cursor-pointer hover:opacity-75 transition-opacity">
-                  <SmoothLink style={navTextStyle} to={pathLink}>{link}</SmoothLink>
+                <li key={link} className="relative cursor-pointer hover:opacity-75 transition-opacity">
+                  <SmoothLink 
+                    style={navTextStyle} 
+                    to={pathLink}
+                    isActive={isActive}
+                    className="relative inline-block"
+                  >
+                    {link}
+                  </SmoothLink>
                 </li>
               );
             })}
@@ -452,10 +518,11 @@ const Navbar = () => {
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
           <SmoothLink to="/" onClick={closeMenu} className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-white">
-              <span className="w-2 h-2 rounded-full bg-white" />
-            </span>
-            <span className="text-white font-semibold text-lg">Accountant</span>
+            <img 
+              className="h-10 w-auto object-contain" 
+              src="/images/logo.jpg" 
+              alt="Logo" 
+            />
           </SmoothLink>
           <button
             onClick={closeMenu}
@@ -473,6 +540,8 @@ const Navbar = () => {
           <ul className="flex flex-col px-6 pt-4 gap-1 pb-6">
             {navLinks.map((link) => {
               const pathLink = link === "Home" ? "/" : `/${link.toLowerCase()}`;
+              const isActive = isLinkActive(link);
+              
               return link === "Industries" ? (
                 <li key={link}>
                   <MobileIndustriesAccordion closeMenu={closeMenu} />
@@ -482,9 +551,14 @@ const Navbar = () => {
                   <SmoothLink
                     to={pathLink}
                     onClick={closeMenu}
-                    className="flex items-center py-3 text-white text-lg font-medium hover:text-[#38b6ff] transition-colors"
+                    className={`flex items-center py-3 text-lg font-medium transition-colors ${
+                      isActive ? "text-[#38b6ff]" : "text-white hover:text-[#38b6ff]"
+                    }`}
                   >
                     {link}
+                    {isActive && (
+                      <span className="ml-2 w-1.5 h-1.5 rounded-full bg-[#38b6ff]" />
+                    )}
                   </SmoothLink>
                 </li>
               );

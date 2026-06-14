@@ -38,7 +38,7 @@ function RecentPostCard({ title, date, image, slug, index }) {
   return (
     <Link 
       ref={cardRef}
-      to={`/blog/${slug}`} 
+      to={`/blogs/${slug}`} 
       onMouseEnter={() => handleCardHover(true)}
       onMouseLeave={() => handleCardHover(false)}
       className="flex items-center gap-4 py-4 border-b border-gray-100 last:border-b-0 hover:opacity-80 transition-opacity"
