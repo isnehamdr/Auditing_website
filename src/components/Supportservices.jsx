@@ -107,7 +107,7 @@ const ServiceItem = ({ title, description, index }) => {
       <button
         ref={buttonRef}
         aria-label={`Learn more about ${title}`}
-        className="mt-1 flex-shrink-0 w-8 h-8 rounded-full border border-blue-200 flex items-center justify-center hover:bg-blue-100 transition-colors duration-200"
+        className="mt-1 flex-shrink-0 w-8 h-8 rounded-full  items-center justify-center "
       >
         {/* <ChevronRight /> */}
       </button>

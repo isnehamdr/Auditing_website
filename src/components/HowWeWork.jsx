@@ -127,7 +127,7 @@ export default function HowWeWork() {
         <div className="mt-20">
           <div 
             ref={statsRef}
-            className="border-2 border-dashed border-[#38b6ff] p-8"
+            className="border-2 border-dashed border-[#38b6ff] bg-white p-8"
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               {stats.map((s, i) => (
