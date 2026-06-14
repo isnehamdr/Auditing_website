@@ -1,5 +1,10 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import servicesData from "../data/servicedata.json"; // Import the JSON data
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import servicesData from "../data/servicedata.json";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ─── Icons (inline SVG) ────────────────────────────────────────────────────
 const PencilIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="1.8"><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H7v-3a2 2 0 01.586-1.414z" /></svg>);
@@ -21,26 +26,83 @@ const iconMap = {
 
 // ─── Hero ──────────────────────────────────────────────────────────────────
 function Hero() {
+  const heroRef = useRef(null);
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+          scrollTrigger: { trigger: heroRef.current, start: "top 80%", toggleActions: "play none none reverse" }
+        }
+      );
+
+      gsap.fromTo(descRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "power2.out",
+          scrollTrigger: { trigger: heroRef.current, start: "top 80%", toggleActions: "play none none reverse" }
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative w-full h-[60vh] sm:h-[75vh] overflow-hidden flex items-center justify-center">
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&q=80')",  minHeight:450}} />
+    <section ref={heroRef} className="relative w-full h-[60vh] sm:h-[75vh] overflow-hidden flex items-center justify-center">
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&q=80')", minHeight: 450 }} />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/70" />
       <div className="relative z-10 text-center px-6 md:px-12 max-w-4xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 tracking-tight drop-shadow-lg">Our Services</h1>
-        <p className="text-gray-200 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md">Accounting data is often used by governments and policymakers for economic planning and analysis.</p>
+        <h1 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6 tracking-tight drop-shadow-lg">Our Services</h1>
+        <p ref={descRef} className="text-gray-200 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md">Accounting data is often used by governments and policymakers for economic planning and analysis.</p>
       </div>
     </section>
   );
 }
 
 // ─── Service Card ──────────────────────────────────────────────────────────
-function ServiceCard({ icon, title, slug, desc }) {
+function ServiceCard({ icon, title, slug, desc, index }) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(cardRef.current,
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.6, delay: index * 0.1, ease: "power2.out",
+        scrollTrigger: { trigger: cardRef.current, start: "top 85%", toggleActions: "play none none reverse" }
+      }
+    );
+  }, [index]);
+
+  const handleCardHover = (isEnter) => {
+    if (isEnter) {
+      gsap.to(cardRef.current, {
+        y: -8,
+        boxShadow: "0 20px 25px -12px rgba(0, 0, 0, 0.15)",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    } else {
+      gsap.to(cardRef.current, {
+        y: 0,
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
+  };
+
   return (
-    <div className="bg-white border border-gray-100 p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div 
+      ref={cardRef}
+      onMouseEnter={() => handleCardHover(true)}
+      onMouseLeave={() => handleCardHover(false)}
+      className="bg-white border border-gray-100 p-8 flex flex-col items-center text-center shadow-sm hover:shadow-md transition-shadow duration-200"
+    >
       <div className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center mb-5">{icon}</div>
       <h3 className="text-gray-800 font-medium text-3xl mb-3">{title}</h3>
       <p className="text-gray-900 text-md mb-6">{desc}</p>
-      {/* Use the slug to create the dynamic link */}
       <Link to={`/service-page/${slug}`} className="border border-gray-300 bg-blue-50 text-gray-600 hover:border-white hover:text-[#38b6ff] text-md px-5 py-3 rounded-full transition-colors duration-200">
         Learn More
       </Link>
@@ -50,11 +112,22 @@ function ServiceCard({ icon, title, slug, desc }) {
 
 // ─── Services Grid ─────────────────────────────────────────────────────────
 function ServicesGrid() {
+  const gridRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(gridRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power2.out",
+        scrollTrigger: { trigger: gridRef.current, start: "top 90%", toggleActions: "play none none reverse" }
+      }
+    );
+  }, []);
+
   return (
-    <section className="bg-white py-16 px-6 md:px-12 ">
-      <div className="max-w-7xl mx-auto lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {servicesData.map((s) => (
-          <ServiceCard key={s.id} icon={iconMap[s.icon]} title={s.title} slug={s.slug} desc={s.description} />
+    <section className="bg-white py-16 px-6 md:px-12 overflow-hidden">
+      <div ref={gridRef} className="max-w-7xl mx-auto lg:px-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {servicesData.map((s, index) => (
+          <ServiceCard key={s.id} icon={iconMap[s.icon]} title={s.title} slug={s.slug} desc={s.description} index={index} />
         ))}
       </div>
     </section>

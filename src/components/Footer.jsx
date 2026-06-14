@@ -1,4 +1,10 @@
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const LinkedInIcon = () => <img src="/images/linkedin.png" alt="" className="w-full h-full object-contain" />;
 const FacebookIcon = () => <img src="/images/facebook.png" alt="" className="w-full h-full object-contain" />;
@@ -35,15 +41,86 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const footerRef = useRef(null);
+  const brandRef = useRef(null);
+  const navContainerRef = useRef(null);
+  const socialRef = useRef(null);
+  const bottomBarRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Simple fade-in animations
+      gsap.fromTo(brandRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: brandRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+
+      gsap.fromTo(navContainerRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: navContainerRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+
+      gsap.fromTo(socialRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: socialRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+
+      gsap.fromTo(bottomBarRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.6,
+          scrollTrigger: {
+            trigger: bottomBarRef.current,
+            start: "top 95%",
+            toggleActions: "play none none none",
+          }
+        }
+      );
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer className="bg-[#0f1f3d] text-white">
+    <footer ref={footerRef} className="bg-[#0f1f3d] text-white">
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 sm:py-20">
         <div className="flex flex-col md:flex-row gap-10 md:gap-6">
 
           {/* Brand Column */}
-          <div className="flex-shrink-0 md:max-w-xs lg:max-w-md">
+          <div ref={brandRef} className="flex-shrink-0 md:max-w-xs lg:max-w-md">
             {/* Logo */}
             <Link to="/" className="inline-block">
               <div className="flex items-center gap-2 mb-4">
@@ -58,7 +135,7 @@ export default function Footer() {
             </Link>
 
             {/* Description */}
-            <p className="text-white text-base sm:text-lg mb-5 ">
+            <p className="text-white text-base sm:text-lg mb-5">
               An accountant is a professional responsible for managing
               financial records, preparing financial statements, and ensuring
               compliance with relevant laws and regulations.
@@ -74,11 +151,10 @@ export default function Footer() {
           </div>
 
           {/* Nav Links */}
-          <div className="flex-1 grid grid-cols-3 gap-4 sm:flex sm:flex-row sm:gap-0 sm:justify-between md:justify-around lg:justify-center lg:gap-16 mt-2 md:mt-8">
+          <div ref={navContainerRef} className="flex-1 grid grid-cols-3 gap-4 sm:flex sm:flex-row sm:gap-0 sm:justify-between md:justify-around lg:justify-center lg:gap-16 mt-2 md:mt-8">
             {navLinks.map((col, colIndex) => (
               <ul key={colIndex} className="flex flex-col gap-3">
                 {col.map((link, linkIndex) => {
-                  // Handle different types of links
                   if (link.type === "link") {
                     return (
                       <li key={linkIndex}>
@@ -113,7 +189,6 @@ export default function Footer() {
                       </li>
                     );
                   } else {
-                    // Plain text
                     return (
                       <li key={linkIndex}>
                         <span className="text-sm sm:text-md text-white break-words">
@@ -127,9 +202,8 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Social Icons — 3×2 grid on desktop, horizontal row on mobile */}
-          <div className="flex-shrink-0 mt-2 md:mt-8">
-            {/* Desktop: 3 cols × 2 rows grid */}
+          {/* Social Icons */}
+          <div ref={socialRef} className="flex-shrink-0 mt-2 md:mt-8">
             <div className="hidden md:grid grid-cols-3 gap-3">
               {socialLinks.map(({ icon, label, url }, index) => (
                 <a
@@ -138,14 +212,13 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-8 h-8 flex items-center justify-center hover:opacity-80 transition-opacity"
+                  className="w-8 h-8 flex items-center justify-center hover:opacity-80 transition-opacity hover:scale-110 duration-300"
                 >
                   {icon}
                 </a>
               ))}
             </div>
 
-            {/* Mobile: horizontal row */}
             <div className="flex md:hidden flex-row gap-4 flex-wrap">
               {socialLinks.map(({ icon, label, url }, index) => (
                 <a
@@ -154,7 +227,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-8 h-8 flex items-center justify-center hover:opacity-80 transition-opacity"
+                  className="w-8 h-8 flex items-center justify-center hover:opacity-80 transition-opacity hover:scale-110 duration-300"
                 >
                   {icon}
                 </a>
@@ -166,7 +239,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div ref={bottomBarRef} className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm text-gray-400">
           <span>© PSandeep Associates Chartered Accountants. All Rights Reserved.</span>      
           <span className="sm:text-right">
@@ -175,7 +248,7 @@ export default function Footer() {
               href="https://saitsolution.com.np"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline hover:text-white transition-colors"
             >
               S.A I.T Solution Nepal
             </a>
