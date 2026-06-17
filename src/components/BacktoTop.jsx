@@ -20,7 +20,7 @@ export default function BackToTop() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+        className="cursor-pointer w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
       >
         <img src="/images/whatsapp.png" alt="WhatsApp" className="w-14 h-14 object-cover" />
       </a>
@@ -29,7 +29,7 @@ export default function BackToTop() {
       <button
         onClick={scrollToTop}
         aria-label="Back to top"
-        className={`w-12 h-12 rounded-full bg-[#38b6ff] hover:bg-blue-400 shadow-lg flex items-center justify-center transition-all duration-300
+        className={`cursor-pointer w-12 h-12 rounded-full bg-[#38b6ff] hover:bg-blue-400 shadow-lg flex items-center justify-center transition-all duration-300
           ${visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}`}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">

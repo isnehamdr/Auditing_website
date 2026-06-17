@@ -445,8 +445,15 @@ const Navbar = () => {
     style={{ maxWidth: '100%' }}
   />
   {/* Fixed: Now uses navTextStyle for color and is responsive */}
- <p 
-  className="inline-block text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-semibold transition-colors duration-300"
+  <p 
+    className="hidden md:inline-block md:ml-2 text-xl font-semibold transition-colors duration-300"
+    style={navTextStyle}
+  >
+    Chartered <br/> Accountant
+  </p>
+
+   <p 
+  className="sm:hidden inline-block text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-semibold transition-colors duration-300"
   style={navTextStyle}
 >
   Chartered <br className="xs:hidden sm:inline md:hidden" /> Accountant
