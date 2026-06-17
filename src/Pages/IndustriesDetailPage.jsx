@@ -38,7 +38,7 @@ function Hero({ title, tagline, backgroundImage }) {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative w-full h-[40vh] min-h-[400px] overflow-hidden flex items-center justify-center">
+    <section ref={heroRef} className="relative w-full h-[40vh] min-h-[580px] overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${backgroundImage}')` }} />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
       <div className="relative z-10 text-center px-6 md:px-12 max-w-4xl mx-auto">

@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import OurValues from "../components/OurValues";
 import HowWeWork from "../components/HowWeWork";
 import Process from "../components/Process";
-import Testimonials from "../components/Testimonials";
+// import Testimonials from "../components/Testimonials";
 import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -253,7 +253,7 @@ export default function AboutPage() {
 <OurValues/>
 <HowWeWork/>
 <Process/>
-<Testimonials/> 
+{/* <Testimonials/>  */}
 
     </>
   );

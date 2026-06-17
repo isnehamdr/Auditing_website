@@ -435,16 +435,23 @@ const Navbar = () => {
         style={navBgStyle}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 md:px-12 py-4 md:py-5">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-0 py-4 md:py-5">
           <SmoothLink to="/" style={navTextStyle} className="flex items-center gap-2 font-semibold text-base sm:text-lg tracking-wide transition-colors duration-300">
-            {/* Logo with proper sizing */}
-            <img 
-              src="/images/logo.jpg" 
-              alt="Logo" 
-              className="h-10 w-auto md:h-12 object-contain"
-              style={{ maxWidth: '100%' }}
-            />
-          </SmoothLink>
+  {/* Logo with proper sizing */}
+  <img 
+    src="/images/logo.jpg" 
+    alt="Logo" 
+    className="h-10 w-auto md:h-12 object-contain"
+    style={{ maxWidth: '100%' }}
+  />
+  {/* Fixed: Now uses navTextStyle for color and is responsive */}
+  <p 
+    className="hidden md:inline-block md:ml-2 text-xl font-medium transition-colors duration-300"
+    style={navTextStyle}
+  >
+    Chartered Accountant
+  </p>
+</SmoothLink>
 
           <ul style={navTextStyle} className="hidden md:flex items-center gap-7 text-lg font-medium transition-colors duration-300">
             {navLinks.map((link) => {
