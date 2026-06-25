@@ -1,0 +1,163 @@
+# Website Information for LLMs
+# Last Updated: 2026-06-17
+
+## Site Overview
+- URL: https://psandeepca.com/
+- Type: Professional CA Firm / Accounting & Advisory Services
+- Technology: React.js with React Router
+
+## Pages and Routes
+
+### Static Pages
+- Home: /
+  - Description: Main landing page for P Sandeep CA - Accounting, Tax, and Financial Advisory services
+  - Priority: High
+  
+- About Us: /about
+  - Description: Company information, mission, values, and history of the CA firm
+  - Priority: High
+  
+- Our Team: /team
+  - Description: Team members, their qualifications, and professional roles
+  - Priority: Medium
+  
+- Services: /services
+  - Description: Comprehensive list of all accounting and advisory services offered
+  - Priority: High
+  
+- Blog: /blog
+  - Description: Company blog with accounting insights, tax tips, and industry updates
+  - Priority: High
+  
+- Contact: /contact
+  - Description: Contact form, office location, and company contact information
+  - Priority: Medium
+
+### Dynamic Routes
+- Service Details: /service-page/:slug
+  - Pattern: /service-page/[service-name]
+  - Description: Detailed information about specific accounting and advisory services
+  - Examples:
+    - /service-page/accounting-services
+    - /service-page/tax-consulting
+    - /service-page/financial-advisory
+    - /service-page/business-valuation
+    - /service-page/audit-assurance
+  
+- Blog Details: /blogs/:slug
+  - Pattern: /blogs/[blog-title]
+  - Description: Full blog post content with detailed articles
+  - Examples:
+    - /blogs/tax-planning-tips
+    - /blogs/accounting-software-guide
+    - /blogs/business-growth-strategies
+    - /blogs/financial-planning-2026
+    - /blogs/gst-compliance-guide
+  
+- Industry Details: /:slug
+  - Pattern: /[industry-name]
+  - Description: Industry-specific accounting solutions and case studies
+  - Examples:
+    - /technology
+    - /healthcare
+    - /real-estate
+    - /retail
+    - /manufacturing
+    - /hospitality
+    - /construction
+
+## Site Structure
+- Navigation: Top navbar with dropdown menus for Services and Industries
+- Footer: Contains links to all major pages, contact info, and social media
+- Back to Top: Floating button for user convenience
+
+## Business Details
+- Firm Name: P Sandeep CA
+- Services: Chartered Accountancy, Tax Consulting, Financial Advisory, Audit & Assurance
+- Target Audience: Businesses, Individuals, Startups, and Enterprises
+- Industries Served: Technology, Healthcare, Real Estate, Retail, Manufacturing, Hospitality, Construction
+
+## Special Features
+- Smooth scrolling on page navigation
+- Scroll restoration to top on route changes
+- Responsive design for all devices
+- Service detail pages with comprehensive information
+- Blog system for regular content updates
+- Industry-specific landing pages
+
+## SEO Information
+- The site uses React Router for client-side routing
+- Dynamic content loads based on URL parameters
+- All routes are accessible for search engine crawling
+- Sitemap.xml and robots.txt are implemented
+
+## Contact Information
+- Website: https://psandeepca.com/
+- Email: info@psandeepca.com
+- Phone: [Your Phone Number]
+- Address: [Your Office Address]
+- Social Media: [Your Social Media Links]
+
+## Content Update Frequency
+- Blog: Weekly updates with new articles
+- Services: Quarterly reviews and updates
+- Team: Updated as team members join or leave
+- About/Contact: Updated as needed
+- Industry Pages: Updated based on market trends
+- Dynamic content: Updated as needed
+
+## Technical Notes for LLMs
+- The site uses client-side rendering with React
+- Dynamic content is served via APIs
+- URL slugs are used for content identification
+- All pages have consistent layout with Navbar and Footer components
+- The site is optimized for SEO and performance
+
+## Important URLs
+- Homepage: https://psandeepca.com/
+- About: https://psandeepca.com/about
+- Services: https://psandeepca.com/services
+- Blog: https://psandeepca.com/blog
+- Contact: https://psandeepca.com/contact
+- Team: https://psandeepca.com/team
+- Sitemap: https://psandeepca.com/sitemap.xml
+- Robots: https://psandeepca.com/robots.txt
+- LLM Info: https://psandeepca.com/llm.txt
+
+## Services Offered
+1. Accounting Services
+2. Tax Consulting
+3. Financial Advisory
+4. Business Valuation
+5. Audit & Assurance
+6. GST Compliance
+7. Corporate Finance
+8. Risk Management
+
+## Target Keywords
+- Chartered Accountant
+- Tax Consultant
+- Accounting Services
+- Financial Advisory
+- Business Valuation
+- Audit Services
+- GST Compliance
+- Corporate Finance
+- CA Firm
+- Accounting Firm
+
+## Site Policies
+- Privacy Policy: [Add when available]
+- Terms of Service: [Add when available]
+- Cookie Policy: [Add when available]
+- Disclaimer: [Add when available]
+
+## Content Usage Guidelines
+- All content is copyrighted to P Sandeep CA
+- For content usage requests, contact via the website
+- Proper attribution required for any content usage
+- Commercial use requires explicit permission
+
+## Version History
+- 2026-06-17: Initial llm.txt created
+- [Add future updates here]

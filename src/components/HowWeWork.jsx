@@ -7,10 +7,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HowWeWork() {
   const stats = [
-    { value: "6K+", label: "Satisfied Clients" },
-    { value: "10K+", label: "Projects Completed" },
-    { value: "18+", label: "Years of Experience" },
-    { value: "64", label: "Expert Advisors" },
+    { value: "50+", label: "Satisfied Clients" },
+    { value: "100+", label: "Projects Completed" },
+    { value: "3+", label: "Years of Experience" },
+    { value: "3", label: "Expert Advisors" },
   ];
 
   const sectionRef = useRef(null);

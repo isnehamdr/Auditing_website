@@ -435,7 +435,7 @@ const Navbar = () => {
         style={navBgStyle}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-0 py-4 md:py-5">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-16 py-4 md:py-5">
           <SmoothLink to="/" style={navTextStyle} className="flex items-center gap-2 font-semibold text-base sm:text-lg tracking-wide transition-colors duration-300">
   {/* Logo with proper sizing */}
   <img 
@@ -446,17 +446,17 @@ const Navbar = () => {
   />
   {/* Fixed: Now uses navTextStyle for color and is responsive */}
   <p 
-    className="hidden md:inline-block md:ml-2 text-xl font-semibold transition-colors duration-300"
+    className="hidden md:inline-block md:ml-2 text-lg font-semibold transition-colors duration-300"
     style={navTextStyle}
   >
-    Chartered <br/> Accountant
+    Chartered <br/> Accountants
   </p>
 
    <p 
   className="sm:hidden inline-block text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl font-semibold transition-colors duration-300"
   style={navTextStyle}
 >
-  Chartered <br className="xs:hidden sm:inline md:hidden" /> Accountant
+  Chartered <br className="xs:hidden sm:inline md:hidden" /> Accountants
 </p>
 </SmoothLink>
 

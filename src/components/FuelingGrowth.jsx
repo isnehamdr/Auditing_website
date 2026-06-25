@@ -49,10 +49,11 @@ function StatCard({ label, percent }) {
       ref={ref}
       className="bg-white/95 backdrop-blur-sm px-2 py-8 flex flex-col items-center gap-3 hover:shadow-lg transition-shadow duration-300"
     >
-      <CircleProgress percent={percent} animate={animate} />
-      <span className="text-sm sm:text-lg text-gray-800 text-center font-normal leading-tight">
+     <p><CircleProgress percent={percent} animate={animate} /></p>
+      
+      <p className="text-sm sm:text-lg text-gray-800 text-center font-normal leading-tight">
         {label}
-      </span>
+      </p>
     </div>
   );
 }

@@ -6,12 +6,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-const LinkedInIcon = () => <img src="/images/linkedin.png" alt="" className="w-full h-full object-contain" />;
-const FacebookIcon = () => <img src="/images/facebook.png" alt="" className="w-full h-full object-contain" />;
-const YoutubeIcon = () => <img src="/images/youtube.png" alt="" className="w-full h-full object-contain" />;
-const TwitterIcon = () => <img src="/images/twitter.png" alt="" className="w-full h-full object-contain" />;
-const WhatsappIcon = () => <img src="/images/whatsapp.png" alt="" className="w-full h-full object-contain" />;
-const InstagramIcon = () => <img src="/images/instagram.png" alt="" className="w-full h-full object-contain" />;
+const LinkedInIcon = () => <img src="/images/linkedin.png" alt="LinkedIn" className="w-full h-full object-contain" />;
+const FacebookIcon = () => <img src="/images/facebook.png" alt="Facebook" className="w-full h-full object-contain" />;
+const YoutubeIcon = () => <img src="/images/youtube.png" alt="youtube" className="w-full h-full object-contain" />;
+const TwitterIcon = () => <img src="/images/twitter.png" alt="Twitter" className="w-full h-full object-contain" />;
+const WhatsappIcon = () => <img src="/images/whatsapp.png" alt="Whatsapp" className="w-full h-full object-contain" />;
+const InstagramIcon = () => <img src="/images/instagram.png" alt="instagram" className="w-full h-full object-contain" />;
 
 const navLinks = [
   [
@@ -32,13 +32,12 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { icon: <LinkedInIcon />, label: "LinkedIn", url: "https://linkedin.com" },
-  { icon: <FacebookIcon />, label: "Facebook", url: "https://facebook.com" },
-  { icon: <InstagramIcon />, label: "Instagram", url: "https://instagram.com" },
-  { icon: <YoutubeIcon />, label: "Youtube", url: "https://youtube.com" },
-  { icon: <TwitterIcon />, label: "Twitter", url: "https://twitter.com" },
-  { icon: <WhatsappIcon />, label: "Whatsapp", url: "https://whatsapp.com" },
-];
+  // { icon: <LinkedInIcon />, label: "LinkedIn", url: "https://linkedin.com" },
+  // { icon: <FacebookIcon />, label: "Facebook", url: "https://facebook.com" },
+  // { icon: <InstagramIcon />, label: "Instagram", url: "https://instagram.com" },
+  // { icon: <YoutubeIcon />, label: "Youtube", url: "https://youtube.com" },
+  // { icon: <TwitterIcon />, label: "Twitter", url: "https://twitter.com" },
+{ icon: <WhatsappIcon />, label: "Whatsapp", url: "https://wa.me/9779851203432" },];
 
 export default function Footer() {
   const footerRef = useRef(null);

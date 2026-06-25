@@ -15,15 +15,19 @@ export default function BackToTop() {
     <div className="fixed  bottom-0 right-5 z-50 flex flex-col items-center gap-3">
 
       {/* WhatsApp button */}
-      <a
-        href="https://wa.me/97761450488"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="cursor-pointer w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
-      >
-        <img src="/images/whatsapp.png" alt="WhatsApp" className="w-14 h-14 object-cover" />
-      </a>
+     <a
+  href="https://wa.me/9779851203432"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat on WhatsApp"
+  className="cursor-pointer w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+>
+  <img
+    src="/images/whatsapp.png"
+    alt="WhatsApp"
+    className="w-14 h-14 object-cover"
+  />
+</a>
 
       {/* Back to Top button — only visible after scrolling */}
       <button

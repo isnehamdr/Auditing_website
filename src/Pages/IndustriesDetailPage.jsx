@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -42,7 +43,7 @@ function Hero({ title, tagline, backgroundImage }) {
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('${backgroundImage}')` }} />
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
       <div className="relative z-10 text-center px-6 md:px-12 max-w-4xl mx-auto">
-        <h1 ref={titleRef} className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 leading-tight drop-shadow-lg">{title}</h1>
+        <h2 ref={titleRef} className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4 leading-tight drop-shadow-lg">{title}</h2>
         <p ref={taglineRef} className="text-gray-200 text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md">{tagline}</p>
       </div>
     </section>
@@ -224,7 +225,7 @@ export default function IndustryDetailPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white pt-20">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Industry Not Found</h1>
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Industry Not Found</h2>
           <p className="text-gray-500">The industry page for "{slug}" doesn't exist.</p>
           <Link to="/" className="inline-block mt-4 text-[#38b6ff] hover:underline">
             Back to Home
@@ -240,13 +241,172 @@ export default function IndustryDetailPage() {
     slug: i.slug,
   }));
 
+  // Generate schema for key services
+  const serviceList = industry.detail.keyServices?.map(service => ({
+    "@type": "Service",
+    "name": service.title,
+    "description": service.description,
+    "provider": {
+      "@type": "Organization",
+      "name": "P Sandeep CA"
+    }
+  })) || [];
+
+  // JSON-LD Schema Markup for Industry Detail Page
+  const industrySchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": `${industry.name} Accounting & Financial Services | P Sandeep CA`,
+    "description": industry.tagline,
+    "url": `https://psandeepca.com/${industry.slug}`,
+    "provider": {
+      "@type": "Organization",
+      "name": "P Sandeep CA",
+      "url": "https://psandeepca.com/"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": industry.name,
+      "description": industry.detail.overview
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": `${industry.name} Financial Services`,
+      "itemListElement": serviceList
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Nepal"
+    }
+  };
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://psandeepca.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Industries",
+        "item": "https://psandeepca.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": industry.name,
+        "item": `https://psandeepca.com/${industry.slug}`
+      }
+    ]
+  };
+
+  // Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "AccountingService",
+    "name": "P Sandeep CA",
+    "description": "Leading CA firm providing accounting, tax consulting, financial advisory, and audit services.",
+    "url": "https://psandeepca.com/",
+    "telephone": "+977-61-450488",
+    "email": "info@psandeepca.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Pokhara-7, Masbar",
+      "addressLocality": "Pokhara",
+      "addressRegion": "Gandaki",
+      "addressCountry": "Nepal"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "28.2096",
+      "longitude": "83.9856"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/psandeepca",
+      "https://www.linkedin.com/company/psandeepca",
+      "https://twitter.com/psandeepca",
+      "https://www.instagram.com/psandeepca/"
+    ]
+  };
+
   return (
-    <div ref={pageRef} className="min-h-screen bg-white">
-      <Hero title={industry.name} tagline={industry.tagline} backgroundImage={industry.heroImage} />
-      <div ref={containerRef} className="max-w-7xl mx-auto px-6 md:px-16 py-14 flex flex-col lg:flex-row gap-12 items-start">
-        <MainContent industry={industry} />
-        <Sidebar industries={sidebarIndustries} currentSlug={industry.slug} />
+    <>
+      {/* Helmet for SEO */}
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>{industry.name} Accounting Services | P Sandeep CA - Industry Solutions</title>
+        <meta name="title" content={`${industry.name} Accounting Services | P Sandeep CA - Industry Solutions`} />
+        <meta name="description" content={`Professional accounting, tax consulting, and financial advisory services for ${industry.name} industry. P Sandeep CA provides specialized financial solutions.`} />
+        <meta name="keywords" content={`${industry.name} Accounting, ${industry.name} Tax Services, ${industry.name} Financial Advisory, ${industry.name} CA Services, Industry Accounting Solutions`} />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="author" content="P Sandeep CA" />
+        <meta name="copyright" content="P Sandeep CA" />
+        
+        {/* Canonical Tag */}
+        <link rel="canonical" href={`https://psandeepca.com/${industry.slug}`} />
+
+        {/* Open Graph Meta Tags (Facebook, LinkedIn) */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://psandeepca.com/${industry.slug}`} />
+        <meta property="og:title" content={`${industry.name} Accounting Services | P Sandeep CA - Industry Solutions`} />
+        <meta property="og:description" content={`Professional accounting, tax consulting, and financial advisory services for ${industry.name} industry. P Sandeep CA provides specialized financial solutions.`} />
+        <meta property="og:image" content={industry.heroImage || "https://psandeepca.com/og-image-industry.jpg"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="P Sandeep CA" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={`https://psandeepca.com/${industry.slug}`} />
+        <meta name="twitter:title" content={`${industry.name} Accounting Services | P Sandeep CA - Industry Solutions`} />
+        <meta name="twitter:description" content={`Professional accounting, tax consulting, and financial advisory services for ${industry.name} industry.`} />
+        <meta name="twitter:image" content={industry.heroImage || "https://psandeepca.com/twitter-image-industry.jpg"} />
+        <meta name="twitter:site" content="@psandeepca" />
+        <meta name="twitter:creator" content="@psandeepca" />
+
+        {/* Additional SEO Tags */}
+        <meta name="geo.region" content="NP" />
+        <meta name="geo.placename" content="Pokhara" />
+        <meta name="geo.position" content="28.2096;83.9856" />
+        <meta name="ICBM" content="28.2096, 83.9856" />
+
+        {/* Schema Markup - JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(industrySchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+      </Helmet>
+
+      {/* YOUR EXISTING UI - UNCHANGED */}
+      <div ref={pageRef} className="min-h-screen bg-white">
+        <Hero title={industry.name} tagline={industry.tagline} backgroundImage={industry.heroImage} />
+        <div ref={containerRef} className="max-w-7xl mx-auto px-6 md:px-16 py-14 flex flex-col lg:flex-row gap-12 items-start">
+          <MainContent industry={industry} />
+          <Sidebar industries={sidebarIndustries} currentSlug={industry.slug} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { Helmet } from 'react-helmet-async';
+import axios from "axios";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BusinessGrow from "../components/Businessgrow";
@@ -6,72 +8,95 @@ import FAQ from "../components/FAQ";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const teamMembers = [
-  {
-    name: "CA Sandeep Paudel",
-    role: "Proprietor",
-    photo: "/images/t1.png",
-  },
-  // {
-  //   name: "Nansi Link",
-  //   role: "Auditor",
-  //   photo: "/images/t2.webp",
-  // },
-  // {
-  //   name: "Jessica Robinson",
-  //   role: "Accountant",
-  //   photo: "/images/t3.webp",
-  // },
-];
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" width="32" height="32">
-      <rect x="2" y="2" width="20" height="20" rx="5" stroke="#374151" strokeWidth="2" />
-      <circle cx="12" cy="12" r="5" stroke="#374151" strokeWidth="2" />
-      <circle cx="17.5" cy="6.5" r="1" fill="#374151" />
-    </svg>
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_PATH;
+// Inline SVG fallback — renders with zero dependency on an actual file
+// existing on disk (unlike a /images/placeholder.png that may not exist).
+const PLACEHOLDER_IMAGE =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'>
+       <rect width='200' height='200' fill='#e5e7eb'/>
+       <circle cx='100' cy='80' r='35' fill='#9ca3af'/>
+       <rect x='45' y='130' width='110' height='60' rx='30' fill='#9ca3af'/>
+     </svg>`
   );
+
+
+function getImageUrl(path) {
+  if (!path) return PLACEHOLDER_IMAGE;
+  if (/^https?:\/\//i.test(path)) return path; // already a full URL
+
+  const base = (IMAGE_BASE_URL || "").replace(/\/+$/, "");
+  let cleanPath = String(path).replace(/^\/+/, "");
+
+  // If the base doesn't already end in /storage and the path doesn't
+  // already start with storage/, assume Laravel's storage-disk convention.
+  const baseHasStorage = /\/storage$/i.test(base);
+  const pathHasStorage = /^storage\//i.test(cleanPath);
+  if (!baseHasStorage && !pathHasStorage) {
+    cleanPath = `${IMAGE_BASE_URL}/${cleanPath}`;
+  }
+
+  return `${base}/${cleanPath}`;
 }
 
-function FacebookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" width="32" height="32">
-      <path
-        d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
-        stroke="#374151"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+// Social Icons Component with all platforms
+function SocialIcons({ size = "w-12 h-12", className = "mt-12" }) {
+  const socialLinks = [
+    {
+      image: "/images/instagram.png",
+      href: "https://www.instagram.com/",
+      alt: "Instagram",
+    },
+    {
+      image: "/images/facebook.png",
+      href: "https://www.facebook.com/psandeepca",
+      alt: "Facebook",
+    },
+    {
+      image: "/images/linkedin.png",
+      href: "https://www.linkedin.com/company/psandeepca",
+      alt: "LinkedIn",
+    },
+  ];
 
-// Carousel Navigation Arrows
-function PrevArrow() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  );
-}
-
-function NextArrow() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
+    <div className={`flex gap-2 ${className}`}>
+      {socialLinks.map((social, index) => (
+        <a
+          key={index}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${size} rounded-full  flex items-center justify-center p-1.5 hover:scale-110 transform transition-all duration-300 hover:bg-blue-600 group`}
+          aria-label={social.alt}
+        >
+          <img
+            src={social.image}
+            alt={social.alt}
+            className="w-full h-full object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300"
+            onError={(e) => {
+              // Fallback if image doesn't exist
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.parentElement.classList.add('bg-blue-600');
+              e.currentTarget.parentElement.innerHTML = `<span class="text-white text-xs font-bold">${social.alt.charAt(0)}</span>`;
+            }}
+          />
+        </a>
+      ))}
+    </div>
   );
 }
 
 export default function OurTeam() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [autoplay, setAutoplay] = useState(true);
   const autoplayRef = useRef(null);
-  
+
   const heroRef = useRef(null);
   const heroTitleRef = useRef(null);
   const heroDescRef = useRef(null);
@@ -85,27 +110,68 @@ export default function OurTeam() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640); // sm breakpoint
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Fetch team data from the API (same backend the admin panel uses)
+  useEffect(() => {
+    const fetchOurTeam = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`${API_BASE_URL}/team`);
+        // Handle both paginated ({data:{data:[...]}}) and flat ({data:[...]}) shapes
+        const data = response.data?.data?.data ?? response.data?.data ?? [];
+
+        // Normalize field names in case the API uses a different key than
+        // the admin panel (e.g. "image" / "photo" instead of "person_image")
+        const normalized = data.map((member) => ({
+          ...member,
+          person_image: member.person_image ?? member.image ?? member.photo ?? null,
+          title: member.title ?? member.role ?? "",
+        }));
+
+        if (normalized[0]) {
+          // Temporary debug log — remove once images are confirmed working.
+          console.log("Sample team member from API:", normalized[0]);
+          console.log("Resolved image URL would be:", getImageUrl(normalized[0].person_image));
+          console.log("IMAGE_BASE_URL is:", IMAGE_BASE_URL);
+        }
+
+        const activeMembers = normalized
+          .filter((member) => member.is_active === 1 || member.is_active === true || member.is_active === undefined)
+          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        setTeamMembers(activeMembers);
+      } catch (error) {
+        console.error("fetching error", error);
+        setTeamMembers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOurTeam();
+  }, []);
+
+
+  console.log(teamMembers);
+
   // Autoplay functionality for mobile
   useEffect(() => {
-    if (isMobile && autoplay) {
+    if (isMobile && autoplay && teamMembers.length > 1) {
       autoplayRef.current = setInterval(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % teamMembers.length);
       }, 3000); // Change slide every 3 seconds
     }
-    
+
     return () => {
       if (autoplayRef.current) {
         clearInterval(autoplayRef.current);
       }
     };
-  }, [isMobile, autoplay]);
+  }, [isMobile, autoplay, teamMembers.length]);
 
   // Stop autoplay on hover
   const pauseAutoplay = () => {
@@ -141,6 +207,8 @@ export default function OurTeam() {
   };
 
   useEffect(() => {
+    if (loading || teamMembers.length === 0) return;
+
     const ctx = gsap.context(() => {
       // Hero section animations
       gsap.fromTo(heroTitleRef.current,
@@ -189,7 +257,7 @@ export default function OurTeam() {
         teamCardsRef.current.forEach((card) => {
           if (card) {
             const imageDiv = card.querySelector(".team-image");
-            
+
             card.addEventListener("mouseenter", () => {
               gsap.to(imageDiv, {
                 scale: 1.05,
@@ -197,7 +265,7 @@ export default function OurTeam() {
                 ease: "power2.out"
               });
             });
-            
+
             card.addEventListener("mouseleave", () => {
               gsap.to(imageDiv, {
                 scale: 1,
@@ -211,10 +279,165 @@ export default function OurTeam() {
     });
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, loading, teamMembers]);
+
+  // Generate team members list for schema
+  const teamMemberSchema = teamMembers.map((member) => ({
+    "@type": "Person",
+    "name": member.name,
+    "jobTitle": member.title,
+    "image": member.person_image ? getImageUrl(member.person_image) : undefined,
+    "url": "https://psandeepca.com/team",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "P Sandeep CA"
+    }
+  }));
+
+  // JSON-LD Schema Markup for Team Page
+  const teamSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "Our Team - P Sandeep CA",
+    "description": "Meet the experienced team at P Sandeep CA. Led by CA Sandeep Paudel, our team provides expert accounting, tax consulting, and financial advisory services.",
+    "url": "https://psandeepca.com/team",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "P Sandeep CA",
+      "url": "https://psandeepca.com/"
+    },
+    "about": {
+      "@type": "Organization",
+      "name": "P Sandeep CA",
+      "description": "Professional Chartered Accountancy firm providing comprehensive financial services."
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": teamMemberSchema
+    }
+  };
+
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://psandeepca.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Our Team",
+        "item": "https://psandeepca.com/team"
+      }
+    ]
+  };
+
+  // Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "AccountingService",
+    "name": "P Sandeep CA",
+    "description": "Leading CA firm providing accounting, tax consulting, financial advisory, and audit services.",
+    "url": "https://psandeepca.com/",
+    "telephone": "+91-XXXXXXXXXX",
+    "email": "info@psandeepca.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Your Office Address",
+      "addressLocality": "City Name",
+      "addressRegion": "State",
+      "postalCode": "XXXXXX",
+      "addressCountry": "India"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "XX.XXXXXX",
+      "longitude": "XX.XXXXXX"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "09:00",
+        "closes": "14:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com",
+      "https://www.linkedin.com",
+      "https://twitter.com",
+      "https://www.instagram.com"
+    ]
+  };
 
   return (
     <>
+      {/* Helmet for SEO */}
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>Our Team | P Sandeep CA - Experienced Chartered Accountants</title>
+        <meta name="title" content="Our Team | P Sandeep CA - Experienced Chartered Accountants" />
+        <meta name="description" content="Meet the experienced team at P Sandeep CA. Led by CA Sandeep Paudel, our team delivers expert accounting, tax consulting, and financial advisory services." />
+        <meta name="keywords" content="Our Team, Chartered Accountants, CA Sandeep Paudel, Accounting Team, Tax Experts, Financial Advisors, P Sandeep CA Team" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="author" content="P Sandeep CA" />
+        <meta name="copyright" content="P Sandeep CA" />
+
+        {/* Canonical Tag */}
+        <link rel="canonical" href="https://psandeepca.com/team" />
+
+        {/* Open Graph Meta Tags (Facebook, LinkedIn) */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://psandeepca.com/team" />
+        <meta property="og:title" content="Our Team | P Sandeep CA - Experienced Chartered Accountants" />
+        <meta property="og:description" content="Meet the experienced team at P Sandeep CA. Led by CA Sandeep Paudel, our team delivers expert accounting, tax consulting, and financial advisory services." />
+        <meta property="og:image" content="https://psandeepca.com/og-image-team.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="P Sandeep CA" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://psandeepca.com/team" />
+        <meta name="twitter:title" content="Our Team | P Sandeep CA - Experienced Chartered Accountants" />
+        <meta name="twitter:description" content="Meet the experienced team at P Sandeep CA. Led by CA Sandeep Paudel, our team delivers expert accounting, tax consulting, and financial advisory services." />
+        <meta name="twitter:image" content="https://psandeepca.com/twitter-image-team.jpg" />
+        <meta name="twitter:site" content="@psandeepca" />
+        <meta name="twitter:creator" content="@psandeepca" />
+
+        {/* Additional SEO Tags */}
+        <meta name="geo.region" content="IN-XX" />
+        <meta name="geo.placename" content="City Name" />
+        <meta name="geo.position" content="XX.XXXXXX;XX.XXXXXX" />
+        <meta name="ICBM" content="XX.XXXXXX, XX.XXXXXX" />
+
+        {/* Schema Markup - JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(teamSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+      </Helmet>
+
+      {/* YOUR EXISTING UI - UNCHANGED */}
       <div
         ref={heroRef}
         className="flex flex-col items-center justify-center text-center px-5 py-16"
@@ -224,13 +447,13 @@ export default function OurTeam() {
           minHeight: 540,
         }}
       >
-        <h1
+        <h2
           ref={heroTitleRef}
           className="text-white font-medium mb-8 text-7xl"
         >
           Our Team
-        </h1>
-        <p 
+        </h2>
+        <p
           ref={heroDescRef}
           className="text-white/80 text-xl max-w-xl font-medium"
         >
@@ -241,7 +464,7 @@ export default function OurTeam() {
       {/* TEAM SECTION */}
       <div className="bg-white py-20 px-6 sm:px-16 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <p 
+          <p
             ref={teamBadgeRef}
             className="text-center text-[#38b6ff] font-medium text-xl mb-8 tracking-wide"
           >
@@ -254,125 +477,139 @@ export default function OurTeam() {
             Our Experienced Team
           </h2>
 
-          {/* Desktop View (Grid) */}
-          <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {teamMembers.map((member, i) => (
-              <div 
-                key={i} 
-                ref={(el) => (teamCardsRef.current[i] = el)}
-                className="flex flex-col"
-              >
-                {/* Photo card with social icons */}
-                <div
-                  className="relative overflow-hidden"
-                  style={{ height: 430 }}
-                >
-                  <div
-                    className="team-image absolute inset-0 transition-transform duration-300"
-                    style={{
-                      background: `url('${member.photo}') top center/contain no-repeat`,
-                    }}
-                  />
-                  {/* Social icons — absolute bottom right */}
-                  <div className="absolute bottom-2.5 right-2.5 flex gap-1.5">
-                    <div className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors group">
-                      <InstagramIcon />
-                    </div>
-                    <div className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors group">
-                      <FacebookIcon />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Name & Role */}
-                <div className="mt-3">
-                  <p className="text-2xl font-medium text-blue-950">{member.name}</p>
-                  <p className="text-md text-gray-800 mt-2">{member.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile View (Carousel) */}
-          <div className="sm:hidden relative">
-            <div 
-              ref={carouselContainerRef}
-              className="overflow-hidden"
-              onMouseEnter={pauseAutoplay}
-              onMouseLeave={resumeAutoplay}
-            >
-              <div 
-                className="flex transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-              >
+          {loading ? (
+            <p className="text-center text-gray-500">Loading team...</p>
+          ) : teamMembers.length === 0 ? (
+            <p className="text-center text-gray-500">No team members found.</p>
+          ) : (
+            <>
+              {/* Desktop View (Grid) */}
+              <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                 {teamMembers.map((member, i) => (
-                  <div key={i} className="w-full flex-shrink-0 px-4">
-                    <div className="flex flex-col">
-                      {/* Photo card with social icons */}
-                      <div
-                        className="relative overflow-hidden rounded-xl"
-                        style={{ height: 430 }}
-                      >
-                        <div
-                          className="absolute inset-0"
-                          style={{
-                            background: `url('${member.photo}') top center/contain no-repeat`,
-                          }}
-                        />
-                        {/* Social icons — absolute bottom right */}
-                        <div className="absolute bottom-2.5 right-2.5 flex gap-1.5">
-                          <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors group">
-                            <InstagramIcon />
-                          </div>
-                          <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center cursor-pointer hover:bg-blue-600 transition-colors group">
-                            <FacebookIcon />
-                          </div>
-                        </div>
+                  <div
+                    key={member.id ?? i}
+                    ref={(el) => (teamCardsRef.current[i] = el)}
+                    className="flex flex-col"
+                  >
+                    {/* Photo card with social icons */}
+                    <div
+                      className="relative overflow-hidden"
+                      style={{ height: 430 }}
+                    >
+                      <img
+                        src={getImageUrl(member.person_image)}
+                        alt={member.name}
+                        className="team-image absolute inset-0 w-full h-full object-contain object-top transition-transform duration-300"
+                        onError={(e) => {
+                          if (e.currentTarget.src !== PLACEHOLDER_IMAGE) {
+                            e.currentTarget.src = PLACEHOLDER_IMAGE;
+                          }
+                        }}
+                      />
+                      {/* Social icons — absolute bottom right */}
+                      <div className="absolute -bottom-2 right-2.5 flex gap-1.5">
+                        <SocialIcons size="w-14 h-14" />
                       </div>
+                    </div>
 
-                      {/* Name & Role */}
-                      <div className="mt-3 text-center">
-                        <p className="text-2xl font-medium text-blue-950">{member.name}</p>
-                        <p className="text-md text-gray-800 mt-2">{member.role}</p>
-                      </div>
+                    {/* Name & Role */}
+                    <div className="mt-3">
+                      <p className="text-2xl font-medium text-blue-950">{member.name}</p>
+                      <p className="text-md text-gray-800 mt-2">{member.title}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
 
-            {/* Navigation Arrows */}
-            <button
-              onClick={goToPrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-300"
-              aria-label="Previous"
-            >
-              <PrevArrow />
-            </button>
-            <button
-              onClick={goToNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-300"
-              aria-label="Next"
-            >
-              <NextArrow />
-            </button>
+              {/* Mobile View (Carousel) */}
+              <div className="sm:hidden relative">
+                <div
+                  ref={carouselContainerRef}
+                  className="overflow-hidden"
+                  onMouseEnter={pauseAutoplay}
+                  onMouseLeave={resumeAutoplay}
+                >
+                  <div
+                    className="flex transition-transform duration-500 ease-out"
+                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                  >
+                    {teamMembers.map((member, i) => (
+                      <div key={member.id ?? i} className="w-full flex-shrink-0 px-4">
+                        <div className="flex flex-col">
+                          {/* Photo card with social icons */}
+                          <div
+                            className="relative overflow-hidden rounded-xl"
+                            style={{ height: 430 }}
+                          >
+                            <img
+                              src={getImageUrl(member.person_image)}
+                              alt={member.name}
+                              className="absolute inset-0 w-full h-full object-contain object-top"
+                              onError={(e) => {
+                                if (e.currentTarget.src !== PLACEHOLDER_IMAGE) {
+                                  e.currentTarget.src = PLACEHOLDER_IMAGE;
+                                }
+                              }}
+                            />
+                            {/* Social icons — absolute bottom right */}
+                            <div className="absolute bottom-2.5 right-2.5 flex gap-1.5">
+                              <SocialIcons size="w-10 h-10" />
+                            </div>
+                          </div>
 
-            {/* Dot Indicators */}
-            <div className="flex justify-center gap-2 mt-6">
-              {teamMembers.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`transition-all duration-300 ${
-                    index === currentIndex
-                      ? "w-8 h-2 bg-[#38b6ff] rounded-full"
-                      : "w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
+                          {/* Name & Role */}
+                          <div className="mt-3 text-center">
+                            <p className="text-2xl font-medium text-blue-950">{member.name}</p>
+                            <p className="text-md text-gray-800 mt-2">{member.title}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Navigation Arrows */}
+                {teamMembers.length > 1 && (
+                  <>
+                    <button
+                      onClick={goToPrev}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-300"
+                      aria-label="Previous"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </button>
+                    <button
+                      onClick={goToNext}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all duration-300"
+                      aria-label="Next"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </button>
+
+                    {/* Dot Indicators */}
+                    <div className="flex justify-center gap-2 mt-6">
+                      {teamMembers.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => goToSlide(index)}
+                          className={`transition-all duration-300 ${
+                            index === currentIndex
+                              ? "w-8 h-2 bg-[#38b6ff] rounded-full"
+                              : "w-2 h-2 bg-gray-300 rounded-full hover:bg-gray-400"
+                          }`}
+                          aria-label={`Go to slide ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
 

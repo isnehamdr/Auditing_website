@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Main Pages -->
+    <url>
+        <loc>https://psandeepca.com/</loc>
+        <priority>1.0</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/about</loc>
+        <priority>0.9</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/team</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/services</loc>
+        <priority>0.9</priority>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/blog</loc>
+        <priority>0.8</priority>
+        <changefreq>daily</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/contact</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <!-- Infrastructure -->
+    <url>
+        <loc>https://psandeepca.com/construction-industry</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/energy-industry</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/mineral-industry</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <!-- Trade & Commerce -->
+    <url>
+        <loc>https://psandeepca.com/manufacturing-industry</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/trade-and-commerce</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/agribusiness</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <!-- Services & Tech -->
+    <url>
+        <loc>https://psandeepca.com/technology-software</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/service-industry</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://psandeepca.com/financial-sector</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+    <!-- Other Sectors -->
+    <url>
+        <loc>https://psandeepca.com/hospitality-tourism</loc>
+        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+    </url>
+
+</urlset>
