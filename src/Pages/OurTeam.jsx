@@ -23,59 +23,72 @@ const PLACEHOLDER_IMAGE =
   );
 
 
+// function getImageUrl(path) {
+//   if (!path) return PLACEHOLDER_IMAGE;
+//   if (/^https?:\/\//i.test(path)) return path; // already a full URL
+
+//   const base = (IMAGE_BASE_URL || "").replace(/\/+$/, "");
+//   let cleanPath = String(path).replace(/^\/+/, "");
+
+//   // If the base doesn't already end in /storage and the path doesn't
+//   // already start with storage/, assume Laravel's storage-disk convention.
+//   const baseHasStorage = /\/storage$/i.test(base);
+//   const pathHasStorage = /^storage\//i.test(cleanPath);
+//   if (!baseHasStorage && !pathHasStorage) {
+//     cleanPath = `${IMAGE_BASE_URL}/${cleanPath}`;
+//   }
+
+//   return `${base}/${cleanPath}`;
+// }
+
 function getImageUrl(path) {
-  if (!path) return PLACEHOLDER_IMAGE;
-  if (/^https?:\/\//i.test(path)) return path; // already a full URL
-
-  const base = (IMAGE_BASE_URL || "").replace(/\/+$/, "");
-  let cleanPath = String(path).replace(/^\/+/, "");
-
-  // If the base doesn't already end in /storage and the path doesn't
-  // already start with storage/, assume Laravel's storage-disk convention.
-  const baseHasStorage = /\/storage$/i.test(base);
-  const pathHasStorage = /^storage\//i.test(cleanPath);
-  if (!baseHasStorage && !pathHasStorage) {
-    cleanPath = `${IMAGE_BASE_URL}/${cleanPath}`;
-  }
-
-  return `${base}/${cleanPath}`;
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${IMAGE_BASE_URL}/${path}`;
 }
 
-// Social Icons Component with all platforms
-function SocialIcons({ size = "w-12 h-12", className = "mt-12" }) {
+// Social Icons Component — driven by each team member's own links.
+// Falls back gracefully: any platform without a link is simply skipped,
+// and the whole block renders nothing if a member has no links at all.
+function SocialIcons({ member, size = "w-12 h-12", className = "mt-12" }) {
   const socialLinks = [
     {
+      key: "instagram",
       image: "/images/instagram.png",
-      href: "https://www.instagram.com/",
+      href: member?.instagram_link,
       alt: "Instagram",
     },
     {
+      key: "facebook",
       image: "/images/facebook.png",
-      href: "https://www.facebook.com/psandeepca",
+      href: member?.facebook_link,
       alt: "Facebook",
     },
     {
+      key: "linkedin",
       image: "/images/linkedin.png",
-      href: "https://www.linkedin.com/company/psandeepca",
+      href: member?.linkedin_link,
       alt: "LinkedIn",
     },
-  ];
+  ].filter((social) => social.href);
+
+  if (socialLinks.length === 0) return null;
 
   return (
     <div className={`flex gap-2 ${className}`}>
-      {socialLinks.map((social, index) => (
+      {socialLinks.map((social) => (
         <a
-          key={index}
+          key={social.key}
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${size} rounded-full  flex items-center justify-center p-1.5 hover:scale-110 transform transition-all duration-300 hover:bg-blue-600 group`}
+          className={`${size} rounded-full  flex items-center justify-center `}
           aria-label={social.alt}
         >
           <img
             src={social.image}
             alt={social.alt}
-            className="w-full h-full object-contain group-hover:brightness-0 group-hover:invert transition-all duration-300"
+            className="w-full h-full object-contain "
             onError={(e) => {
               // Fallback if image doesn't exist
               e.currentTarget.style.display = 'none';
@@ -132,6 +145,9 @@ export default function OurTeam() {
           ...member,
           person_image: member.person_image ?? member.image ?? member.photo ?? null,
           title: member.title ?? member.role ?? "",
+          instagram_link: member.instagram_link ?? member.instagram ?? "",
+          facebook_link: member.facebook_link ?? member.facebook ?? "",
+          linkedin_link: member.linkedin_link ?? member.linkedin ?? "",
         }));
 
         if (normalized[0]) {
@@ -288,6 +304,7 @@ export default function OurTeam() {
     "jobTitle": member.title,
     "image": member.person_image ? getImageUrl(member.person_image) : undefined,
     "url": "https://psandeepca.com/team",
+    "sameAs": [member.instagram_link, member.facebook_link, member.linkedin_link].filter(Boolean),
     "worksFor": {
       "@type": "Organization",
       "name": "P Sandeep CA"
@@ -506,9 +523,9 @@ export default function OurTeam() {
                           }
                         }}
                       />
-                      {/* Social icons — absolute bottom right */}
+                      {/* Social icons — absolute bottom right, pulled from this member's own links */}
                       <div className="absolute -bottom-2 right-2.5 flex gap-1.5">
-                        <SocialIcons size="w-14 h-14" />
+                        <SocialIcons member={member} size="w-14 h-14" />
                       </div>
                     </div>
 
@@ -542,7 +559,8 @@ export default function OurTeam() {
                             style={{ height: 430 }}
                           >
                             <img
-                              src={getImageUrl(member.person_image)}
+                              // src={getImageUrl(member.person_image)}
+                              src={`${IMAGE_BASE_URL}/${member.person_image}`}
                               alt={member.name}
                               className="absolute inset-0 w-full h-full object-contain object-top"
                               onError={(e) => {
@@ -551,9 +569,9 @@ export default function OurTeam() {
                                 }
                               }}
                             />
-                            {/* Social icons — absolute bottom right */}
+                            {/* Social icons — absolute bottom right, pulled from this member's own links */}
                             <div className="absolute bottom-2.5 right-2.5 flex gap-1.5">
-                              <SocialIcons size="w-10 h-10" />
+                              <SocialIcons member={member} size="w-10 h-10" />
                             </div>
                           </div>
 

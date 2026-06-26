@@ -4,7 +4,6 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import servicesData from "../data/servicedata.json"; // Local fallback data
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -28,46 +27,145 @@ const PLACEHOLDER_IMAGE =
      </svg>`
   );
 
-// Builds a safe image URL: handles a missing/empty path, an already-absolute
-// URL (e.g. a local JSON fallback using a real https URL), and Laravel's
-// "/storage/" public-disk convention.
-function getImageUrl(path) {
-  if (!path) return PLACEHOLDER_IMAGE;
-  if (/^https?:\/\//i.test(path)) return path;
-  if (path.startsWith("/")) return path; // local public asset
+// Builds a safe image URL
+// function getImageUrl(path) {
+//   if (!path) return PLACEHOLDER_IMAGE;
+//   if (/^https?:\/\//i.test(path)) return path;
+//   if (path.startsWith("/")) return path;
 
-  const base = (IMAGE_BASE_URL || "").replace(/\/+$/, "");
-  let cleanPath = String(path).replace(/^\/+/, "");
-  const baseHasStorage = /\/storage$/i.test(base);
-  const pathHasStorage = /^storage\//i.test(cleanPath);
-  if (!baseHasStorage && !pathHasStorage) {
-    cleanPath = `storage/${cleanPath}`;
-  }
-  return `${base}/${cleanPath}`;
+//   const base = (IMAGE_BASE_URL || "").replace(/\/+$/, "");
+//   let cleanPath = String(path).replace(/^\/+/, "");
+//   const baseHasStorage = /\/storage$/i.test(base);
+//   const pathHasStorage = /^storage\//i.test(cleanPath);
+//   if (!baseHasStorage && !pathHasStorage) {
+//     cleanPath = `storage/${cleanPath}`;
+//   }
+//   return `${base}/${cleanPath}`;
+// }
+
+function getImageUrl(path) {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${IMAGE_BASE_URL}/${path}`;
 }
 
-// Normalizes a raw API service record (or a local JSON record) into the
-// shape this page expects: { id, title, slug, detail: {...} }
+// Normalizes API service record
 function normalizeService(raw) {
-  const existingDetail = raw.detail ?? {};
   return {
     id: raw.id,
-    title: raw.title ?? raw.name ?? "",
-    slug: raw.slug ?? String(raw.id ?? ""),
+    title: raw.title || "",
+    slug: raw.slug || String(raw.id || ""),
     is_active: raw.is_active,
-    order: raw.order,
-    detail: {
-      heroDescription:
-        existingDetail.heroDescription ?? raw.hero_description ?? raw.description ?? "",
-      featureImage:
-        existingDetail.featureImage ?? raw.feature_image ?? raw.image ?? raw.photo ?? "",
-      introParagraph:
-        existingDetail.introParagraph ?? raw.intro_paragraph ?? raw.intro ?? "",
-      sectionTitle: existingDetail.sectionTitle ?? raw.section_title ?? "",
-      sectionParagraph:
-        existingDetail.sectionParagraph ?? raw.section_paragraph ?? raw.content ?? "",
-    },
+    sort_order: raw.sort_order || 0,
+    short_description: raw.short_description || "",
+    description: raw.description || "",
+    detail: raw.detail || "", // HTML content from admin
+    icon: raw.icon || "",
+    image: raw.image || "",
   };
+}
+
+// ─── HTML Parser Utility ──────────────────────────────────────────────
+function parseHTMLToReact(htmlString, className = "") {
+  if (!htmlString) return null;
+  
+  // Create a temporary div to parse HTML
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = htmlString;
+  
+  // Process child nodes recursively
+  const processNode = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return node.textContent;
+    }
+    
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const children = Array.from(node.childNodes).map(child => processNode(child));
+      const tagName = node.tagName.toLowerCase();
+      const attributes = {};
+      
+      // Get all attributes
+      for (let i = 0; i < node.attributes.length; i++) {
+        const attr = node.attributes[i];
+        attributes[attr.name] = attr.value;
+      }
+      
+      // Map HTML elements to React components with styling
+      switch (tagName) {
+        case 'p':
+          return <p className={`text-gray-500 text-lg md:text-xl max-w-lg mx-auto ${className}`}>{children}</p>;
+        case 'h1':
+          return <h1 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">{children}</h1>;
+        case 'h2':
+          return <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-3">{children}</h2>;
+        case 'h3':
+          return <h3 className="text-2xl md:text-3xl font-light text-gray-900 mb-2">{children}</h3>;
+        case 'h4':
+          return <h4 className="text-xl md:text-2xl font-light text-gray-900 mb-2">{children}</h4>;
+        case 'h5':
+          return <h5 className="text-lg md:text-xl font-light text-gray-900 mb-1">{children}</h5>;
+        case 'h6':
+          return <h6 className="text-base md:text-lg font-light text-gray-900 mb-1">{children}</h6>;
+        case 'strong':
+        case 'b':
+          return <strong className="font-semibold text-gray-700">{children}</strong>;
+        case 'em':
+        case 'i':
+          return <em className="italic text-gray-600">{children}</em>;
+        case 'span':
+          return <span className={attributes.class || "text-gray-500"}>{children}</span>;
+        case 'br':
+          return <br />;
+        case 'hr':
+          return <hr className="my-4 border-gray-200" />;
+        case 'ul':
+          return <ul className="list-disc list-inside text-gray-500 text-lg md:text-xl max-w-lg mx-auto text-left">{children}</ul>;
+        case 'ol':
+          return <ol className="list-decimal list-inside text-gray-500 text-lg md:text-xl max-w-lg mx-auto text-left">{children}</ol>;
+        case 'li':
+          return <li className="text-gray-500 text-lg md:text-xl">{children}</li>;
+        case 'a':
+          return <a href={attributes.href} className="text-blue-500 hover:text-blue-700 underline" target={attributes.target || '_self'}>{children}</a>;
+        case 'div':
+          return <div className={attributes.class || "text-gray-500"}>{children}</div>;
+        case 'section':
+          return <section className={attributes.class || "text-gray-500"}>{children}</section>;
+        case 'article':
+          return <article className={attributes.class || "text-gray-500"}>{children}</article>;
+        case 'header':
+          return <header className={attributes.class || "text-gray-500"}>{children}</header>;
+        case 'footer':
+          return <footer className={attributes.class || "text-gray-500"}>{children}</footer>;
+        case 'main':
+          return <main className={attributes.class || "text-gray-500"}>{children}</main>;
+        case 'blockquote':
+          return <blockquote className="border-l-4 border-blue-400 pl-4 my-2 text-gray-600">{children}</blockquote>;
+        case 'pre':
+          return <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-gray-700">{children}</pre>;
+        case 'code':
+          return <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-gray-700">{children}</code>;
+        case 'img':
+          return <img src={attributes.src} alt={attributes.alt || ''} className="max-w-full h-auto rounded-lg my-4" />;
+        case 'table':
+          return <table className="min-w-full divide-y divide-gray-200 my-4">{children}</table>;
+        case 'thead':
+          return <thead className="bg-gray-50">{children}</thead>;
+        case 'tbody':
+          return <tbody className="bg-white divide-y divide-gray-200">{children}</tbody>;
+        case 'tr':
+          return <tr>{children}</tr>;
+        case 'th':
+          return <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{children}</th>;
+        case 'td':
+          return <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{children}</td>;
+        default:
+          return <span className="text-gray-500">{children}</span>;
+      }
+    }
+    return null;
+  };
+  
+  return processNode(tempDiv);
 }
 
 // ─── Hero ──────────────────────────────────────────────────────────────────
@@ -75,6 +173,15 @@ function Hero({ title, description }) {
   const heroRef = useRef(null);
   const titleRef = useRef(null);
   const descRef = useRef(null);
+  const [parsedDescription, setParsedDescription] = useState(null);
+
+  useEffect(() => {
+    // Parse HTML description when it changes
+    if (description) {
+      const parsed = parseHTMLToReact(description);
+      setParsedDescription(parsed);
+    }
+  }, [description]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -92,8 +199,14 @@ function Hero({ title, description }) {
 
   return (
     <div ref={heroRef} className="w-full bg-blue-50 py-16 px-6 text-center min-h-[450px]">
-      <h2 ref={titleRef} className="text-4xl md:text-5xl font-light text-gray-900 mb-4 mt-24">{title}</h2>
-      <p ref={descRef} className="text-gray-500 text-lg md:text-xl max-w-lg mx-auto">{description}</p>
+      <h2 ref={titleRef} className="text-4xl md:text-5xl font-light text-gray-900 mb-4 mt-24">
+        {title}
+      </h2>
+      <div ref={descRef} className="max-w-lg mx-auto">
+        {parsedDescription || (
+          <p className="text-gray-500 text-lg md:text-xl max-w-lg mx-auto">{description}</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -110,7 +223,6 @@ function Sidebar({ links }) {
         { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }
       );
 
-      // Stagger animation for sidebar items
       itemsRef.current.forEach((item, index) => {
         if (!item) return;
         gsap.fromTo(item,
@@ -159,12 +271,9 @@ function Sidebar({ links }) {
 
 // ─── Main Content ──────────────────────────────────────────────────────────
 function MainContent({ service }) {
-  const { detail } = service;
   const contentRef = useRef(null);
   const imageRef = useRef(null);
-  const introRef = useRef(null);
-  const titleRef = useRef(null);
-  const paragraphRef = useRef(null);
+  const contentWrapperRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -174,22 +283,10 @@ function MainContent({ service }) {
         { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" }
       );
 
-      // Intro paragraph animation
-      gsap.fromTo(introRef.current,
+      // Content animation
+      gsap.fromTo(contentWrapperRef.current,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: "power2.out" }
-      );
-
-      // Section title animation
-      gsap.fromTo(titleRef.current,
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.6, delay: 0.4, ease: "power2.out" }
-      );
-
-      // Section paragraph animation
-      gsap.fromTo(paragraphRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, delay: 0.5, ease: "power2.out" }
       );
     });
     return () => ctx.revert();
@@ -197,10 +294,11 @@ function MainContent({ service }) {
 
   return (
     <div ref={contentRef} className="flex-1 min-w-0">
+      {/* Image */}
       <div className="w-full rounded-xl overflow-hidden mb-6">
         <img
           ref={imageRef}
-          src={getImageUrl(detail.featureImage)}
+          src={getImageUrl(service.image)}
           alt={service.title}
           className="w-full h-72 md:h-96 object-cover"
           onError={(e) => {
@@ -210,30 +308,25 @@ function MainContent({ service }) {
           }}
         />
       </div>
-      <p ref={introRef} className="text-gray-900 text-lg mb-8">{detail.introParagraph}</p>
-      <h2 ref={titleRef} className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{detail.sectionTitle}</h2>
-      <p ref={paragraphRef} className="text-gray-900 text-lg mb-10">{detail.sectionParagraph}</p>
+
+      {/* Render detail HTML content from admin */}
+      <div 
+        ref={contentWrapperRef}
+        className="prose prose-lg max-w-none leading-relaxed text-gray-900 prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:shadow-md text-lg sm:text-xl"
+        dangerouslySetInnerHTML={{ __html: service.detail || service.description || service.short_description || '' }}
+      />
     </div>
   );
 }
 
 // ─── Page ──────────────────────────────────────────────────────────────────
 export default function ServiceDetailPage() {
-  // Extract the slug from the URL parameters
   const { slug } = useParams();
-
-  // Seed with the local JSON (normalized) so the page never renders blank
-  // while the API call is in flight or if it fails.
-  const [allServices, setAllServices] = useState(() => servicesData.map(normalizeService));
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Refs for page transitions
-  const pageRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Fetch the full service list from the API (same backend the admin panel
-  // and the Services listing page use) so this page reflects live content,
-  // including any service that only exists in the database, not the JSON.
+  // Fetch services from API
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -241,23 +334,15 @@ export default function ServiceDetailPage() {
         const response = await axios.get(`${API_BASE_URL}/service`);
         const data = response.data?.data?.data ?? response.data?.data ?? [];
         const normalized = data.map(normalizeService);
-
-        if (normalized[0]) {
-          // Temporary debug log — remove once confirmed working.
-          console.log("Sample service detail from API:", normalized[0]);
-        }
-
+        
+        // Filter active services
         const activeServices = normalized.filter(
-          (s) => s.is_active === 1 || s.is_active === true || s.is_active === undefined
+          (s) => s.is_active === 1 || s.is_active === true
         );
-
-        // Only replace the local fallback if the API actually returned data.
-        if (activeServices.length > 0) {
-          setAllServices(activeServices);
-        }
+        
+        setServices(activeServices);
       } catch (error) {
-        console.error("fetching error", error);
-        // Keep the local JSON fallback on failure.
+        console.error("Error fetching services:", error);
       } finally {
         setLoading(false);
       }
@@ -265,21 +350,18 @@ export default function ServiceDetailPage() {
     fetchServices();
   }, []);
 
-  // Find the specific service for the current slug from whichever data set
-  // is currently loaded (API once it arrives, local JSON until then).
-  const service = allServices.find((s) => s.slug === slug) ?? null;
+  // Find the specific service for the current slug
+  const service = services.find((s) => s.slug === slug) || null;
 
-  // Generate sidebar links dynamically and mark the current one as active
-  const sidebarLinks = allServices.map((s) => ({
+  // Generate sidebar links dynamically
+  const sidebarLinks = services.map((s) => ({
     id: s.id,
     label: s.title,
     slug: s.slug,
     active: s.slug === slug,
   }));
 
-  // Page transition animation when slug or the loaded service changes.
-  // Hooks must always run in the same order, so this stays above any
-  // conditional "not found" return below.
+  // Page transition animation
   useEffect(() => {
     if (!service) return;
     const ctx = gsap.context(() => {
@@ -291,9 +373,8 @@ export default function ServiceDetailPage() {
     return () => ctx.revert();
   }, [slug, service]);
 
-  // Still loading and we don't have a local-JSON match yet either —
-  // show a loading state instead of jumping straight to "Not Found".
-  if (!service && loading) {
+  // Loading state
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
         <p className="text-gray-500">Loading service...</p>
@@ -301,7 +382,7 @@ export default function ServiceDetailPage() {
     );
   }
 
-  // Loading finished and nothing matched this slug in either data set.
+  // Service not found
   if (!service) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -310,34 +391,21 @@ export default function ServiceDetailPage() {
     );
   }
 
-  // JSON-LD Schema Markup for Service Detail Page
+  // Get hero description from short_description or description
+  const heroDescription = service.short_description || service.description || "";
+
+  // JSON-LD Schema Markup
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": service.title,
-    "description": service.detail.heroDescription,
+    "description": heroDescription,
     "provider": {
       "@type": "ProfessionalService",
       "name": "P Sandeep CA",
       "url": "https://psandeepca.com/"
     },
     "url": `https://psandeepca.com/service-page/${service.slug}`,
-    "about": {
-      "@type": "Thing",
-      "name": service.title,
-      "description": service.detail.introParagraph
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": `${service.title} Services`,
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "name": service.title,
-          "description": service.detail.introParagraph
-        }
-      ]
-    },
     "areaServed": {
       "@type": "Country",
       "name": "Nepal"
@@ -345,7 +413,6 @@ export default function ServiceDetailPage() {
     "serviceType": "Accounting & Financial Advisory"
   };
 
-  // Breadcrumb Schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -371,7 +438,6 @@ export default function ServiceDetailPage() {
     ]
   };
 
-  // Organization Schema
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "AccountingService",
@@ -386,73 +452,36 @@ export default function ServiceDetailPage() {
       "addressLocality": "Pokhara",
       "addressRegion": "Gandaki",
       "addressCountry": "Nepal"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "28.2096",
-      "longitude": "83.9856"
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "09:00",
-        "closes": "17:00"
-      }
-    ],
-    "sameAs": [
-      "https://www.facebook.com/psandeepca",
-      "https://www.linkedin.com/company/psandeepca",
-      "https://twitter.com/psandeepca",
-      "https://www.instagram.com/psandeepca/"
-    ]
+    }
   };
 
   return (
     <>
-      {/* Helmet for SEO */}
       <Helmet>
-        {/* Primary Meta Tags */}
         <title>{service.title} | P Sandeep CA - Professional Accounting Services</title>
         <meta name="title" content={`${service.title} | P Sandeep CA - Professional Accounting Services`} />
-        <meta name="description" content={service.detail.heroDescription} />
+        <meta name="description" content={heroDescription} />
         <meta name="keywords" content={`${service.title}, Accounting Services, Tax Consulting, Financial Advisory, CA Services, P Sandeep CA`} />
         <meta name="robots" content="index, follow" />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="author" content="P Sandeep CA" />
-        <meta name="copyright" content="P Sandeep CA" />
-        
-        {/* Canonical Tag */}
         <link rel="canonical" href={`https://psandeepca.com/service-page/${service.slug}`} />
-
-        {/* Open Graph Meta Tags (Facebook, LinkedIn) */}
+        
+        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://psandeepca.com/service-page/${service.slug}`} />
         <meta property="og:title" content={`${service.title} | P Sandeep CA - Professional Accounting Services`} />
-        <meta property="og:description" content={service.detail.heroDescription} />
-        <meta property="og:image" content={getImageUrl(service.detail.featureImage)} />
+        <meta property="og:description" content={heroDescription} />
+        <meta property="og:image" content={getImageUrl(service.image)} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="P Sandeep CA" />
-        <meta property="og:locale" content="en_IN" />
 
-        {/* Twitter Card Meta Tags */}
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={`https://psandeepca.com/service-page/${service.slug}`} />
         <meta name="twitter:title" content={`${service.title} | P Sandeep CA - Professional Accounting Services`} />
-        <meta name="twitter:description" content={service.detail.heroDescription} />
-        <meta name="twitter:image" content={getImageUrl(service.detail.featureImage)} />
-        <meta name="twitter:site" content="@psandeepca" />
-        <meta name="twitter:creator" content="@psandeepca" />
+        <meta name="twitter:description" content={heroDescription} />
+        <meta name="twitter:image" content={getImageUrl(service.image)} />
 
-        {/* Additional SEO Tags */}
-        <meta name="geo.region" content="NP" />
-        <meta name="geo.placename" content="Pokhara" />
-        <meta name="geo.position" content="28.2096;83.9856" />
-        <meta name="ICBM" content="28.2096, 83.9856" />
-
-        {/* Schema Markup - JSON-LD */}
+        {/* Schema Markup */}
         <script type="application/ld+json">
           {JSON.stringify(serviceSchema)}
         </script>
@@ -464,9 +493,9 @@ export default function ServiceDetailPage() {
         </script>
       </Helmet>
 
-      {/* YOUR EXISTING UI - UNCHANGED */}
-      <div ref={pageRef} className="min-h-screen bg-white font-sans">
-        <Hero title={service.title} description={service.detail.heroDescription} />
+      {/* Page Content */}
+      <div className="min-h-screen bg-white font-sans">
+        <Hero title={service.title} description={heroDescription} />
         <div ref={containerRef} className="max-w-7xl mx-auto px-6 md:px-16 py-14 flex flex-col lg:flex-row gap-10">
           <Sidebar links={sidebarLinks} />
           <MainContent service={service} />

@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import axios from "axios";
+import parse from 'html-react-parser';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +80,7 @@ function RecentPostCard({ title, date, image, slug, index }) {
       />
       <div className="min-w-0">
         <h4 className="text-gray-800 text-sm font-semibold leading-snug mb-1.5 line-clamp-2">
-          {title || "Untitled"}
+          {title ? parse(title) : "Untitled"}
         </h4>
         <p className="text-gray-400 text-sm">{formatDate(date)}</p>
       </div>
@@ -242,14 +243,14 @@ function Hero({ title, date, excerpt, image }) {
           ref={titleRef}
           className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 leading-tight drop-shadow-lg"
         >
-          {title || "Untitled"}
+          {title ? parse(title) : "Untitled"}
         </h2>
-        <p
+        <div
           ref={excerptRef}
-          className="text-gray-200 text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md"
+          className="text-white text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md"
         >
-          {excerpt || ""}
-        </p>
+          {excerpt ? parse(excerpt) : ""}
+        </div>
       </div>
     </section>
   );
@@ -323,13 +324,12 @@ function Article({ post }) {
   const renderContent = () => {
     if (!post) return null;
     
-    // If content is HTML string
+    // If content is HTML string - now using html-react-parser
     if (typeof post.content === 'string') {
       return (
-        <div 
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <div className="prose prose-lg max-w-none">
+          {parse(post.content)}
+        </div>
       );
     }
     
@@ -339,9 +339,9 @@ function Article({ post }) {
       return (
         <>
           {content.intro && (
-            <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-8">
-              {content.intro}
-            </p>
+            <h3 className="text-gray-600 text-base md:text-lg leading-relaxed mb-8">
+              {parse(content.intro)}
+            </h3>
           )}
           
           {Array.isArray(content.bulletPoints) && content.bulletPoints.length > 0 && (
@@ -352,10 +352,10 @@ function Article({ post }) {
                   className="flex gap-4 text-base md:text-lg text-gray-600 leading-relaxed"
                 >
                   <span className="mt-2 w-2.5 h-2.5 rounded-full bg-[#38b6ff] flex-shrink-0" />
-                  <p>
-                    {item.heading && <span className="font-semibold text-gray-800">{item.heading} </span>}
-                    {item.text || ""}
-                  </p>
+                  <h3>
+                    {item.heading && <h3 className="font-semibold text-gray-800">{parse(item.heading)} </h3>}
+                    {item.text && parse(item.text)}
+                  </h3>
                 </li>
               ))}
             </ul>
@@ -363,7 +363,7 @@ function Article({ post }) {
           
           {content.conclusion && (
             <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-              {content.conclusion}
+              {parse(content.conclusion)}
             </p>
           )}
         </>
@@ -375,13 +375,13 @@ function Article({ post }) {
 
   return (
     <article ref={articleRef} className="flex-1 min-w-0">
-      <h2 ref={headingRef} className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-        {post?.title || "Untitled"}
-      </h2>
+      <h3 ref={headingRef} className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+        {post?.title ? parse(post.title) : "Untitled"}
+      </h3>
 
-      <div ref={contentRef}>
+      <p ref={contentRef} className="text-gray-600 text-base md:text-lg leading-relaxed">
         {renderContent()}
-      </div>
+      </p>
     </article>
   );
 }
@@ -477,22 +477,22 @@ export default function BlogDetailPage() {
   } else if (typeof post.content === 'object') {
     const content = post.content;
     const parts = [];
-    if (content.intro) parts.push(content.intro);
+    if (content.intro) parts.push(content.intro.replace(/<[^>]*>/g, ''));
     if (Array.isArray(content.bulletPoints)) {
       content.bulletPoints.forEach(b => {
-        if (b.heading) parts.push(b.heading);
-        if (b.text) parts.push(b.text);
+        if (b.heading) parts.push(b.heading.replace(/<[^>]*>/g, ''));
+        if (b.text) parts.push(b.text.replace(/<[^>]*>/g, ''));
       });
     }
-    if (content.conclusion) parts.push(content.conclusion);
+    if (content.conclusion) parts.push(content.conclusion.replace(/<[^>]*>/g, ''));
     articleBody = parts.join(' ');
   }
 
   const blogPostSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: post.title || "Untitled",
-    description: post.excerpt || "",
+    headline: post.title ? post.title.replace(/<[^>]*>/g, '') : "Untitled",
+    description: post.excerpt ? post.excerpt.replace(/<[^>]*>/g, '') : "",
     image: postImageUrl,
     datePublished: postDate,
     dateModified: post.updated_at || postDate,
@@ -534,7 +534,7 @@ export default function BlogDetailPage() {
       {
         "@type": "ListItem",
         position: 3,
-        name: post.title || "Blog Post",
+        name: post.title ? post.title.replace(/<[^>]*>/g, '') : "Blog Post",
         item: `https://psandeepca.com/blogs/${post.slug || ''}`,
       },
     ],
@@ -577,16 +577,18 @@ export default function BlogDetailPage() {
     ],
   };
 
+  // Clean text for meta tags
+  const cleanTitle = post.title ? post.title.replace(/<[^>]*>/g, '') : "Blog Post";
+  const cleanExcerpt = post.excerpt ? post.excerpt.replace(/<[^>]*>/g, '') : "";
+  const cleanKeywords = post.tags?.join(', ') || "Accounting, Tax Consulting, Financial Advisory, Business Growth, P Sandeep CA";
+
   return (
     <>
       <Helmet>
-        <title>{post.title || "Blog Post"} | P Sandeep CA Blog</title>
-        <meta name="title" content={`${post.title || "Blog Post"} | P Sandeep CA Blog`} />
-        <meta name="description" content={post.excerpt || ""} />
-        <meta
-          name="keywords"
-          content={post.tags?.join(', ') || "Accounting, Tax Consulting, Financial Advisory, Business Growth, P Sandeep CA"}
-        />
+        <title>{cleanTitle} | P Sandeep CA Blog</title>
+        <meta name="title" content={`${cleanTitle} | P Sandeep CA Blog`} />
+        <meta name="description" content={cleanExcerpt} />
+        <meta name="keywords" content={cleanKeywords} />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
@@ -599,8 +601,8 @@ export default function BlogDetailPage() {
 
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://psandeepca.com/blogs/${post.slug || ''}`} />
-        <meta property="og:title" content={`${post.title || "Blog Post"} | P Sandeep CA Blog`} />
-        <meta property="og:description" content={post.excerpt || ""} />
+        <meta property="og:title" content={`${cleanTitle} | P Sandeep CA Blog`} />
+        <meta property="og:description" content={cleanExcerpt} />
         <meta property="og:image" content={postImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -613,8 +615,8 @@ export default function BlogDetailPage() {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={`https://psandeepca.com/blogs/${post.slug || ''}`} />
-        <meta name="twitter:title" content={`${post.title || "Blog Post"} | P Sandeep CA Blog`} />
-        <meta name="twitter:description" content={post.excerpt || ""} />
+        <meta name="twitter:title" content={`${cleanTitle} | P Sandeep CA Blog`} />
+        <meta name="twitter:description" content={cleanExcerpt} />
         <meta name="twitter:image" content={postImageUrl} />
         <meta name="twitter:site" content="@psandeepca" />
         <meta name="twitter:creator" content="@psandeepca" />

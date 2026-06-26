@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import parse from 'html-react-parser';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_PATH;
@@ -29,6 +30,22 @@ function getImageUrl(path, fallback) {
   const cleanPath = String(path).replace(/^\/+/, "");
   return `${base}/${cleanPath}`;
 }
+
+// Safe HTML parser with options
+const parseHtmlContent = (content) => {
+  if (!content) return null;
+  
+  // Options for html-react-parser to handle security
+  const options = {
+    replace: (node) => {
+      // You can add custom replacements here if needed
+      // For example, to add classes to certain elements
+      return node;
+    }
+  };
+  
+  return parse(content, options);
+};
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -76,6 +93,8 @@ const Hero = () => {
             button_link: record.button_link ?? record.btn_link ?? DEFAULT_HERO.button_link,
             main_image: record.image ?? record.main_image ?? record.photo ?? DEFAULT_HERO.main_image,
             corner_image: record.corner_image ?? record.secondary_image ?? DEFAULT_HERO.corner_image,
+            // Support for HTML content in description
+            description_html: record.description_html ?? record.description ?? DEFAULT_HERO.description,
           });
         }
       } catch (error) {
@@ -90,6 +109,16 @@ const Hero = () => {
 
   const mainImageUrl = getImageUrl(hero.main_image, DEFAULT_HERO.main_image);
   const cornerImageUrl = getImageUrl(hero.corner_image, DEFAULT_HERO.corner_image);
+
+  // Determine if we should render HTML or plain text
+  const renderDescription = (description) => {
+    // Check if the description contains HTML tags
+    const hasHtml = /<[a-z][\s\S]*>/i.test(description);
+    if (hasHtml) {
+      return parseHtmlContent(description);
+    }
+    return description;
+  };
 
   return (
     <section
@@ -144,14 +173,14 @@ const Hero = () => {
           }`}
         >
           <h2 className="text-white text-4xl font-normal mb-6">
-            {hero.heading}
+            {parseHtmlContent(hero.heading) || hero.heading}
           </h2>
           <p className="text-white/80 text-md mb-10">
-            {hero.description}
+            {renderDescription(hero.description)}
           </p>
           <div>
             <Link to={hero.button_link} className="bg-white text-gray-800 hover:bg-[#38b6ff] hover:border hover:border-white hover:text-white font-medium text-lg sm:px-8 sm:py-4 px-6 py-3 rounded-full transition-colors duration-200">
-              {hero.button_text}
+              {parseHtmlContent(hero.button_text) || hero.button_text}
             </Link>
           </div>
         </div>
@@ -183,11 +212,11 @@ const Hero = () => {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
-            <h1 className="text-white text-4xl md:text-5xl lg:text-7xl font-normal mb-6 mt-24">
-              {hero.heading}
+            <h1 className="text-white text-4xl md:text-5xl lg:text-7xl font-normal -mb-8 mt-24">
+              {parseHtmlContent(hero.heading) || hero.heading}
             </h1>
-            <p className="text-white/80 text-sm md:text-lg mb-10 tracking-[1px]">
-              {hero.description}
+            <p className="text-white/80 text-sm md:text-xl mb-10 tracking-[1px]">
+              {renderDescription(hero.description)}
             </p>
           </div>
           <div
@@ -196,7 +225,7 @@ const Hero = () => {
             }`}
           >
             <Link to={hero.button_link} className="bg-white text-gray-800 hover:bg-[#38b6ff] hover:border hover:border-white hover:text-white font-medium text-lg px-8 py-4 rounded-full transition-colors duration-200">
-              {hero.button_text}
+              {parseHtmlContent(hero.button_text) || hero.button_text}
             </Link>
           </div>
         </div>
